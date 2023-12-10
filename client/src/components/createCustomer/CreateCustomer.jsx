@@ -22,7 +22,7 @@ function CreateCustomer({ customerData, setCustomerData }) {
                 phoneNumber: values.phoneNumber,
             };
 
-            await axios.post("http://localhost:3001/customers", newCustomer);
+            await axios.post("http://localhost:3001/api/customers", newCustomer);
             addCustomerToData(newCustomer);
             setValues({
                 firstName: "",

@@ -1,25 +1,9 @@
 import express from "express";
-import bodyParser from "body-parser";
-import mysql from "mysql2/promise";
-import cors from "cors";
-import { config } from "dotenv";
+import db from "../db/db.js";
 
-const app = express();
-const port = 3001;
-config();
+const router = express.Router();
 
-const db = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
-});
-
-app.use(cors());
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.get("/customers", async (req, res) => {
+router.get("/customers", async (req, res) => {
     try {
         const [rows] = await db.query("SELECT * FROM customer_data");
         res.send(rows);
@@ -29,7 +13,7 @@ app.get("/customers", async (req, res) => {
     }
 });
 
-app.post("/customers", async (req, res) => {
+router.post("/customers", async (req, res) => {
     try {
         const { firstName, lastName, email, phoneNumber } = req.body;
         const [result] = await db.query("INSERT INTO customer_data (first_name, last_name, email, phone_number) VALUES (?,?,?,?)", [firstName, lastName, email, phoneNumber]);
@@ -40,7 +24,7 @@ app.post("/customers", async (req, res) => {
     }
 });
 
-app.put("/customers/:id", async (req, res) => {
+router.put("/customers/:id", async (req, res) => {
     try {
         const { id, firstName, lastName, email, phoneNumber } = req.body;
         const [result] = await db.query("UPDATE customer_data SET first_name = ?, last_name = ?, email = ?, phone_number = ? WHERE id = ?", [firstName, lastName, email, phoneNumber, id]);
@@ -51,7 +35,7 @@ app.put("/customers/:id", async (req, res) => {
     }
 });
 
-app.delete("/customers/:id", async (req, res) => {
+router.delete("/customers/:id", async (req, res) => {
     try {
         const id = req.params.id;
         const [result] = await db.query("DELETE FROM customer_data WHERE id = ?", id);
@@ -62,6 +46,4 @@ app.delete("/customers/:id", async (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+export default router;

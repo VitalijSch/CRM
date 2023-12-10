@@ -20,7 +20,7 @@ function ViewCustomerData({ id, firstName, lastName, email, phoneNumber, setCust
 
     const handleUpdateCustomer = async () => {
         try {
-            await axios.put(`http://localhost:3001/customers/${id}`, {
+            await axios.put(`http://localhost:3001/api/customers/${id}`, {
                 id: id,
                 firstName: newValues.firstName || firstName,
                 lastName: newValues.lastName || lastName,
@@ -59,7 +59,7 @@ function ViewCustomerData({ id, firstName, lastName, email, phoneNumber, setCust
 
     const handleDeleteCustomer = async () => {
         try {
-            await axios.delete(`http://localhost:3001/customers/${id}`);
+            await axios.delete(`http://localhost:3001/api/customers/${id}`);
 
             setCustomerData(prevData =>
                 prevData.filter(customer => customer.id !== id)
