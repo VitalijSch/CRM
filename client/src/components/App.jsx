@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../styles/styles.css";
+import axios from "axios";
+import isEqual from "lodash/isEqual";
+
 import Header from "./header/Header";
 import CreateCustomer from "./createCustomer/CreateCustomer";
 import ViewCustomer from "./viewCustomer/ViewCustomer";
-import axios from "axios";
 
 function App() {
     const [customerData, setCustomerData] = useState([]);
-    const [showCustomerData, setShowCustomerData] = useState(false);
 
     useEffect(() => {
         const fetchCustomerData = async () => {
             try {
                 const response = await axios.get("http://localhost:3001/api/customers");
-                setCustomerData(response.data);
+                const newData = response.data;
+
+                if (!isEqual(newData, customerData)) {
+                    setCustomerData(newData);
+                }
             } catch (error) {
                 console.error("Error fetching customer data:", error);
             }
@@ -24,23 +30,13 @@ function App() {
     }, [customerData]);
 
     return (
-        <>
-            <Header
-                onSetShowCustomerDataTrue={() => setShowCustomerData(true)}
-                onSetShowCustomerDataFalse={() => setShowCustomerData(false)}
-            />
-            {showCustomerData ? (
-                <ViewCustomer
-                    customerData={customerData}
-                    setCustomerData={setCustomerData}
-                />
-            ) : (
-                <CreateCustomer
-                    customerData={customerData}
-                    setCustomerData={setCustomerData}
-                />
-            )}
-        </>
+        <BrowserRouter>
+            <Header />
+            <Routes>
+                <Route path="/" element={<CreateCustomer customerData={customerData} setCustomerData={setCustomerData} />} />
+                <Route path="view" element={<ViewCustomer customerData={customerData} setCustomerData={setCustomerData} />} />
+            </Routes>
+        </BrowserRouter>
     )
 }
 

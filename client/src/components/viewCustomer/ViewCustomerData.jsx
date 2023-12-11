@@ -69,79 +69,71 @@ function ViewCustomerData({ id, firstName, lastName, email, phoneNumber, setCust
         }
     };
 
-    const renderCustomerData = () => (
-        <>
-            <td>{firstName}</td>
-            <td>{lastName}</td>
-            <td>{email}</td>
-            <td>{phoneNumber}</td>
-        </>
-    );
-
-    const renderChangeInputs = () => (
-        <>
-            <td>
-                <input
-                    onChange={handleInputChange}
-                    value={newValues.firstName}
-                    type="text"
-                    id="firstName"
-                    autoComplete="off"
-                />
-            </td>
-            <td>
-                <input
-                    onChange={handleInputChange}
-                    value={newValues.lastName}
-                    type="text"
-                    id="lastName"
-                    autoComplete="off"
-                />
-            </td>
-            <td>
-                <input
-                    onChange={handleInputChange}
-                    value={newValues.email}
-                    type="email"
-                    id="email"
-                    autoComplete="off"
-                />
-            </td>
-            <td>
-                <input
-                    onChange={handleInputChange}
-                    value={newValues.phoneNumber}
-                    type="tel"
-                    id="phoneNumber"
-                    autoComplete="off"
-                />
-            </td>
-        </>
-    );
-
-    const renderImgDataChange = () => (
-        <img
-            onClick={() => { setShowChangeCustomerData(true) }}
-            className="styleImg mx-2"
-            src="../images/change.svg"
-            alt="change customer"
-        />
-    );
-
-    const renderImgDataChangeChecked = () => (
-        <img
-            onClick={handleUpdateCustomer}
-            className="styleImg mx-2"
-            src="../images/customerChange.svg"
-            alt="change customer checked"
-        />
-    );
-
     return (
         <tr>
-            {!showChangeCustomerData ? renderCustomerData() : renderChangeInputs()}
+            {!showChangeCustomerData ? (
+                <>
+                    <td>{firstName}</td>
+                    <td>{lastName}</td>
+                    <td>{email}</td>
+                    <td>{phoneNumber}</td>
+                </>
+            ) : (
+                <>
+                    <td>
+                        <input
+                            onChange={handleInputChange}
+                            value={newValues.firstName}
+                            type="text"
+                            id="firstName"
+                            autoComplete="off"
+                        />
+                    </td>
+                    <td>
+                        <input
+                            onChange={handleInputChange}
+                            value={newValues.lastName}
+                            type="text"
+                            id="lastName"
+                            autoComplete="off"
+                        />
+                    </td>
+                    <td>
+                        <input
+                            onChange={handleInputChange}
+                            value={newValues.email}
+                            type="email"
+                            id="email"
+                            autoComplete="off"
+                        />
+                    </td>
+                    <td>
+                        <input
+                            onChange={handleInputChange}
+                            value={newValues.phoneNumber}
+                            type="tel"
+                            id="phoneNumber"
+                            autoComplete="off"
+                        />
+                    </td>
+                </>
+            )}
             <td>
-                {!showChangeCustomerData ? renderImgDataChange() : renderImgDataChangeChecked()}
+                {!showChangeCustomerData ?
+                    <img
+                        onClick={() => { setShowChangeCustomerData(true) }}
+                        className="styleImg mx-2"
+                        src="../images/change.svg"
+                        alt="change customer"
+                    />
+                    :
+                    <img
+                        onClick={handleUpdateCustomer}
+                        className="styleImg mx-2"
+                        src="../images/customerChange.svg"
+                        alt="change customer checked"
+                    />
+                }
                 <img
                     onClick={handleDeleteCustomer}
                     className="styleImg mx-2"

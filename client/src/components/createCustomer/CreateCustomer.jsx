@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import validate from "./validation/CustomerValidation";
 
 function CreateCustomer({ customerData, setCustomerData }) {
     const [values, setValues] = useState({
@@ -9,30 +10,40 @@ function CreateCustomer({ customerData, setCustomerData }) {
         phoneNumber: "",
     });
 
+    const [error, setError] = useState({});
+
+    const isInputDataValid = () => {
+        const err = validate(values);
+        setError(err);
+        return Object.values(err).every(value => value === "");
+    };
+
     const addCustomerToData = (newCustomer) => {
         setCustomerData([...customerData, newCustomer]);
     };
 
     const saveCustomer = async () => {
-        try {
-            const newCustomer = {
-                firstName: values.firstName,
-                lastName: values.lastName,
-                email: values.email,
-                phoneNumber: values.phoneNumber,
-            };
+        if (isInputDataValid()) {
+            try {
+                const newCustomer = {
+                    firstName: values.firstName,
+                    lastName: values.lastName,
+                    email: values.email,
+                    phoneNumber: values.phoneNumber,
+                };
 
-            await axios.post("http://localhost:3001/api/customers", newCustomer);
-            addCustomerToData(newCustomer);
-            setValues({
-                firstName: "",
-                lastName: "",
-                email: "",
-                phoneNumber: "",
-            });
+                await axios.post("http://localhost:3001/api/customers", newCustomer);
+                addCustomerToData(newCustomer);
+                setValues({
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    phoneNumber: "",
+                });
 
-        } catch (error) {
-            console.error("Error saving customer:", error);
+            } catch (error) {
+                console.error("Error saving customer:", error);
+            }
         }
     };
 
@@ -60,6 +71,7 @@ function CreateCustomer({ customerData, setCustomerData }) {
                                 placeholder="firstName"
                             />
                             <label htmlFor="firstName">Vorname</label>
+                            {error.firstName && <span className="text-danger">{error.firstName}</span>}
                         </div>
                         <div className="form-floating my-3">
                             <input
@@ -72,6 +84,7 @@ function CreateCustomer({ customerData, setCustomerData }) {
                                 placeholder="lastName"
                             />
                             <label htmlFor="lastName">Nachname</label>
+                            {error.lastName && <span className="text-danger">{error.lastName}</span>}
                         </div>
                         <div className="form-floating my-3">
                             <input
@@ -84,6 +97,7 @@ function CreateCustomer({ customerData, setCustomerData }) {
                                 placeholder="email"
                             />
                             <label htmlFor="email">E-Mail</label>
+                            {error.email && <span className="text-danger">{error.email}</span>}
                         </div>
                         <div className="form-floating my-3">
                             <input
@@ -96,6 +110,7 @@ function CreateCustomer({ customerData, setCustomerData }) {
                                 placeholder="phoneNumber"
                             />
                             <label htmlFor="phoneNumber">Telefonnummer</label>
+                            {error.phoneNumber && <span className="text-danger">{error.phoneNumber}</span>}
                         </div>
                         <button onClick={saveCustomer} className="w-100 btn btn-lg btn-primary mt-4">Hinzufügen</button>
                     </div>

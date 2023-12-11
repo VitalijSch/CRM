@@ -1,6 +1,7 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
-function Header({ onSetShowCustomerDataTrue, onSetShowCustomerDataFalse }) {
+function Header() {
     return (
         <header className="bg-body-tertiary border-bottom py-2">
             <div className="container">
@@ -11,10 +12,14 @@ function Header({ onSetShowCustomerDataTrue, onSetShowCustomerDataFalse }) {
                     <div className="container col-4">
                         <div className="row">
                             <div className="col-6 d-flex justify-content-end align-items-center">
-                                <img onClick={onSetShowCustomerDataTrue} className="styleImg" src="../images/customer.svg" alt="View Customer Data" />
+                                <NavLink to={"/view"}>
+                                    <img className="styleImg" src="../images/customer.svg" alt="View Customer Data" />
+                                </NavLink>
                             </div>
                             <div className="col-6 d-flex justify-content-end align-items-center">
-                                <img onClick={onSetShowCustomerDataFalse} className="styleImg" src="../images/add.svg" alt="Add Customer" />
+                                <NavLink to={"/"}>
+                                    <img className="styleImg" src="../images/add.svg" alt="Add Customer" />
+                                </NavLink>
                             </div>
                         </div>
                     </div>

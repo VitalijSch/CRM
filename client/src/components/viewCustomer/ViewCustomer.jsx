@@ -7,7 +7,15 @@ const CustomerList = ({ customerData, setCustomerData }) => {
             <h2 className="my-4 text-center text-muted">Kundendaten</h2>
             <div className="table-responsive small">
                 <table className="table table-striped table-sm">
-                    <CustomerTableHeadings />
+                    <thead className="text-center">
+                        <tr>
+                            <th scope="col">Vorname</th>
+                            <th scope="col">Nachname</th>
+                            <th scope="col">E-Mail</th>
+                            <th scope="col">Telefonnummer</th>
+                            <th scope="col">Einstellungen</th>
+                        </tr>
+                    </thead>
                     <tbody className="text-center">
                         {customerData.map(customer => (
                             <ViewCustomerData
@@ -26,17 +34,5 @@ const CustomerList = ({ customerData, setCustomerData }) => {
         </div>
     );
 }
-
-const CustomerTableHeadings = () => (
-    <thead className="text-center">
-        <tr>
-            <th scope="col">Vorname</th>
-            <th scope="col">Nachname</th>
-            <th scope="col">E-Mail</th>
-            <th scope="col">Telefonnummer</th>
-            <th scope="col">Einstellungen</th>
-        </tr>
-    </thead>
-);
 
 export default CustomerList;
