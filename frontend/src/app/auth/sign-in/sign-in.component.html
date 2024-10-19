@@ -1,0 +1,14 @@
+<form>
+    <label for="email">Email address</label>
+    <input type="email" name="email" id="email" formControlName="email" placeholder="Enter your email">
+    <div class="label-container">
+        <label for="password">Password</label>
+        <span class="forgot-password">forgot password</span>
+    </div>
+    <input type="password" name="password" id="password" formControlName="password" placeholder="Enter your password">
+    <div class="checkbox-container">
+        <input type="checkbox" name="checkbox" id="checkbox">
+        <span>Remember Me</span>
+    </div>
+    <button type="button" (click)="router.navigate(['home'])">Sign In</button>
+</form>

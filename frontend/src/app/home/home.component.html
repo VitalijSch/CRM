@@ -1,0 +1,9 @@
+<div [class.closed-sidebar]="!headerService.showSidebar" class="home">
+    <app-header></app-header>
+    @if(headerService.showSidebar) {
+    <app-sidebar></app-sidebar>
+    }
+    <div class="main-container">
+        <router-outlet></router-outlet>
+    </div>
+</div>
