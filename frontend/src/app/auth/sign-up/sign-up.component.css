@@ -9,7 +9,13 @@ label {
     font-weight: 600;
 }
 
-input {
+.input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.input-container input {
     border-radius: 10px;
     border: 1px solid #D9D9D9;
     padding: 10px;
@@ -17,33 +23,32 @@ input {
     cursor: pointer;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    margin-bottom: 25px;
-}
-
-input:hover {
+.input-container input:hover {
     border-color: grey;
 }
 
-.checkbox-container {
+.input-container small {
+    margin-top: 5px;
+    font-size: 10px;
+    color: red;
+}
+
+.input-container .checkbox-container {
     display: flex;
     gap: 10px;
     align-items: center;
-    margin-bottom: 25px;
 }
 
-.checkbox-container>span {
+.input-container .checkbox-container>span {
     font-size: 10px;
 }
 
-.checkbox-container>span>span {
+.input-container .checkbox-container>span>span {
     text-decoration: underline;
     cursor: pointer;
 }
 
-.checkbox-container>span>span:hover {
+.input-container .checkbox-container>span>span:hover {
     color: grey;
 }
 
@@ -67,9 +72,7 @@ button:hover {
 
 @media(min-width: 981px) and (max-height: 600px) {
 
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-        margin-bottom: 15px;
+    .input-container {
+        margin-bottom: 10px;
     }
 }
