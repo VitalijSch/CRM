@@ -31,9 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'user_auth',
-    'rest_framework',
     'corsheaders',
+    'rest_framework',
+    'user_auth',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +54,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:4200",
+    'http://localhost:4200'
 ]
 
 ROOT_URLCONF = 'crm.urls'

@@ -3,8 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../interfaces/user';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { ApiService } from '../../services/api/api.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -21,7 +20,8 @@ export class SignUpComponent {
   public fb: FormBuilder = inject(FormBuilder);
 
   private authService: AuthService = inject(AuthService);
-  private http: HttpClient = inject(HttpClient);
+  private apiService: ApiService = inject(ApiService);
+
 
   constructor() {
     this.userForm = this.fb.group({
@@ -45,11 +45,15 @@ export class SignUpComponent {
       let user = this.authService.user;
       user.email = this.userForm.get('email')?.value;
       user.password = this.userForm.get('password')?.value;
-      this.register(user);
+      this.addUser(user);
     }
   }
 
-  public register(user: User): Observable<any> {
-    return this.http.post('127.0.0.1:8000//user_auth/sign-up', user);
+  public addUser(user: User): void {
+    if (user) {
+      this.apiService.createUser(user).subscribe(person => {
+        console.log(person)
+      });
+    }
   }
 }
