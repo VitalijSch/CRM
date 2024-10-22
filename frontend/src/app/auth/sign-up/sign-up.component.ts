@@ -14,20 +14,22 @@ import { ApiService } from '../../services/api/api.service';
 })
 export class SignUpComponent {
   public passwordMatch: boolean = false;
-
   public userForm: FormGroup;
+  public selectedFile: File | null = null;
+  public previewUrl: string | ArrayBuffer | null = null;
 
   public fb: FormBuilder = inject(FormBuilder);
 
   private authService: AuthService = inject(AuthService);
   private apiService: ApiService = inject(ApiService);
 
-
   constructor() {
     this.userForm = this.fb.group({
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
+      user_profile: ['', [Validators.required]],
       checkbox: [false, Validators.requiredTrue],
     });
   }
@@ -42,18 +44,35 @@ export class SignUpComponent {
 
   public createUser(): void {
     if (this.userForm.valid && this.passwordMatch) {
-      let user = this.authService.user;
-      user.email = this.userForm.get('email')?.value;
-      user.password = this.userForm.get('password')?.value;
-      this.addUser(user);
+      const formData = new FormData();
+      formData.append('name', this.userForm.get('name')?.value);
+      formData.append('email', this.userForm.get('email')?.value);
+      formData.append('password', this.userForm.get('password')?.value);
+      if (this.selectedFile) {
+        formData.append('user_profile', this.selectedFile);
+      }
+      this.addUser(formData);
     }
   }
 
-  public addUser(user: User): void {
-    if (user) {
-      this.apiService.createUser(user).subscribe(person => {
-        console.log(person)
-      });
+  public addUser(formData: FormData): void {
+    this.apiService.createUser(formData).subscribe(person => {
+      this.userForm.reset();
+      this.selectedFile = null;
+      this.previewUrl = null;
+      console.log(person);
+    });
+  }
+
+  public onFileSelected(event: Event): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      this.selectedFile = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUrl = reader.result;
+      };
+      reader.readAsDataURL(this.selectedFile);
     }
   }
 }

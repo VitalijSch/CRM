@@ -1,4 +1,13 @@
 <form [formGroup]="userForm" (ngSubmit)="createUser()">
+    <label for="name">Name</label>
+    <div class="input-container">
+        <input type="text" name="name" id="name" formControlName="name" placeholder="Enter your name">
+        @if(userForm.get('name')?.invalid && userForm.get('name')?.touched) {
+        @if(userForm.get('name')?.hasError('required')) {
+        <small>Name is required</small>
+        }
+        }
+    </div>
     <label for="email">Email address</label>
     <div class="input-container">
         <input type="email" name="email" id="email" formControlName="email" placeholder="Enter your email">
@@ -38,6 +47,12 @@
         }
         @if(!passwordMatch && userForm.get('confirmPassword')?.valid) {
         <small>Passwords do not match</small>
+        }
+    </div>
+    <div class="input-container">
+        <input type="file" (change)="onFileSelected($event)" formControlName="user_profile" accept="image/*">
+        @if(previewUrl) {
+        <img [src]="previewUrl" alt="Image preview" width="200">
         }
     </div>
     <div class="input-container">

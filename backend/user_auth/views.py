@@ -24,6 +24,12 @@ class LoginView(generics.GenericAPIView):
             return Response({'error': 'Benutzer nicht gefunden.'}, status=status.HTTP_404_NOT_FOUND)
 
         if check_password(password, user.password):
-            return Response({'success': 'Anmeldung erfolgreich!', 'email': user.email}, status=status.HTTP_200_OK)
+            user_profile_url = request.build_absolute_uri(
+                user.user_profile.url) if user.user_profile else None
+            return Response({
+                'success': 'Anmeldung erfolgreich!',
+                'name': user.name,
+                'user_profile': user_profile_url
+            }, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Falsches Passwort.'}, status=status.HTTP_400_BAD_REQUEST)

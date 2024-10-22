@@ -15,7 +15,7 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}login/`, user);
   }
 
-  public createUser(user: User): Observable<any> {
-    return this.http.post(`${this.apiUrl}users/`, user);
+  public createUser(formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}users/`, formData);
   }
 }

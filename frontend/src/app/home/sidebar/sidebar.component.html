@@ -1,8 +1,8 @@
 <div class="sidebar-container">
     <div class="header-container">
         <div class="left-container">
-            <img src="../../../assets/images/auth/auth.png" alt="profile">
-            <span>Name</span>
+            <img src="{{sidebarService.user_data.user_profile}}" alt="profile">
+            <span>{{sidebarService.user_data.name}}</span>
         </div>
         <svg (click)="sidebarService.toggleShowDropdown()" width="30" height="30" viewBox="0 0 24 24"
             aria-hidden="true">

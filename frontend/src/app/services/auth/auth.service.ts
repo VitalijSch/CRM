@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
+import { User } from '../../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  public user = {
+  public user: User = {
+    name: '',
     email: '',
-    password: ''
+    password: '',
+    user_profile: null
   }
 
   public resetUser(): void {
     this.user = {
+      name: '',
       email: '',
-      password: ''
+      password: '',
+      user_profile: null
     }
   }
 }
