@@ -16,6 +16,8 @@ export class SignInComponent {
 
   private users!: User;
 
+  public isLoginInvalid: boolean = false;
+
   public fb: FormBuilder = inject(FormBuilder);
   public router: Router = inject(Router);
 
@@ -32,11 +34,15 @@ export class SignInComponent {
     const user = this.userForm.value;
     this.apiService.getUsers(user).subscribe(
       response => {
+        console.log(response)
+        this.isLoginInvalid = false;
         this.router.navigate(['home']);
       },
       error => {
-        console.error(error);
-        // Hier kannst du eine Fehlermeldung anzeigen
+        this.isLoginInvalid = true;
+        setTimeout(() => {
+          this.isLoginInvalid = false;
+        }, 3000);
       }
     );
   }

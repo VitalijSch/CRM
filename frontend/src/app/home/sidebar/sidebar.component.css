@@ -3,3 +3,78 @@
     background-color: #e3e7e8;
     border-right: 1px solid black;
 }
+
+.header-container {
+    height: 15%;
+    background-image: url(../../../assets/images/home/sdiebar_header.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-container .left-container {
+    display: flex;
+    gap: 10px;
+}
+
+.header-container .left-container img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid #3f51b5;
+}
+
+.header-container .left-container span {
+    height: 50px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+.header-container svg {
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 1px solid transparent;
+}
+
+.header-container svg:hover {
+    transform: scale(1.1);
+    fill: #3f51b5;
+    border-color: #3f51b5;
+}
+
+.nav-container {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nav-container .nav-flex-container {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+}
+
+.nav-container .nav-flex-container:hover {
+    background-color: aliceblue;
+}
+
+.nav-container .nav-flex-container:hover span,
+.nav-container .nav-flex-container:hover svg {
+    transform: scale(1.1);
+}
+
+.nav-container .nav-flex-container span {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #3f51b5;
+}

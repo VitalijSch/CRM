@@ -26,6 +26,9 @@
         <small>Password must be at least 8 characters long</small>
         }
         }
+        @if (isLoginInvalid) {
+        <small>Check your email and password. The credentials are incorrect.</small>
+        }
     </div>
     <div class="checkbox-container">
         <input type="checkbox" name="checkbox" id="checkbox">

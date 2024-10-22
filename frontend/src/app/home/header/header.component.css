@@ -9,7 +9,8 @@
         0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.header-container svg {
+.header-container svg:hover {
+    transform: scale(1.2);
     cursor: pointer;
 }
 
