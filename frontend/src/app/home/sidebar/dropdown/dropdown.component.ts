@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { SidebarService } from '../../../services/home/sidebar/sidebar.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dropdown',
@@ -10,4 +11,12 @@ import { SidebarService } from '../../../services/home/sidebar/sidebar.service';
 })
 export class DropdownComponent {
   public sidebarService: SidebarService = inject(SidebarService);
+  private router: Router = inject(Router);
+
+  public signOut(event: MouseEvent): void {
+    event.stopPropagation();
+    this.sidebarService.toggleShowDropdown();
+    this.sidebarService.resetUserData();
+    this.router.navigate(['auth/sign-in']);
+  }
 }

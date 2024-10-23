@@ -8,6 +8,8 @@ class User(models.Model):
     user_profile = models.ImageField(
         upload_to='user_profile/', blank=True, null=True)
     password = models.CharField(max_length=128)
+    remember_me = models.BooleanField(default=False)
+    last_login = models.DateTimeField(null=True, blank=True)
 
     def set_password(self, raw_password):
         self.password = make_password(raw_password)

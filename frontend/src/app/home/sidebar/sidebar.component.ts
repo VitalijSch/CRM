@@ -14,7 +14,14 @@ import { CommonModule } from '@angular/common';
 export class SidebarComponent {
   public sidebarService: SidebarService = inject(SidebarService);
 
-  private router: Router = inject(Router);
+  public router: Router = inject(Router);
+
+  public ngOnInit(): void {
+    console.log(this.sidebarService.userData)
+    if (this.sidebarService.userData.name === '') {
+      this.router.navigate(['auth/sign-in']);
+    }
+  }
 
   public activeMenu(menu: string): boolean {
     if (this.router.url.includes(menu)) {

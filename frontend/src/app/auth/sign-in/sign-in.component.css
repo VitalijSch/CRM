@@ -8,6 +8,10 @@ label {
     font-weight: 600;
 }
 
+input {
+    cursor: pointer;
+}
+
 .input-container {
     display: flex;
     flex-direction: column;
@@ -19,7 +23,6 @@ label {
     border: 1px solid #D9D9D9;
     padding: 10px;
     font-size: 10px;
-    cursor: pointer;
 }
 
 .input-container input:hover {

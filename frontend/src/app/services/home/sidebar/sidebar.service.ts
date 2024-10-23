@@ -6,12 +6,19 @@ import { UserData } from '../../../interfaces/user-data';
 })
 export class SidebarService {
   public showDropdown: boolean = false;
-  public user_data: UserData = {
+  public userData: UserData = {
     name: '',
-    user_profile: ''
+    userProfile: ''
   }
 
   public toggleShowDropdown(): void {
     this.showDropdown = !this.showDropdown;
+  }
+
+  public resetUserData(): void {
+    this.userData = {
+      name: '',
+      userProfile: ''
+    }
   }
 }

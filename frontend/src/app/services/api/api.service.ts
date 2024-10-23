@@ -18,4 +18,8 @@ export class ApiService {
   public createUser(formData: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}users/`, formData);
   }
+
+  public getUserById(userId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}users/${userId}/`);
+  }
 }

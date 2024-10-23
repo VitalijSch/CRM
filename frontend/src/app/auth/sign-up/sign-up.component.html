@@ -50,7 +50,7 @@
         }
     </div>
     <div class="input-container">
-        <input type="file" (change)="onFileSelected($event)" formControlName="user_profile" accept="image/*">
+        <input type="file" (change)="onFileSelected($event)" formControlName="userProfile" accept="image/*">
         @if(previewUrl) {
         <img [src]="previewUrl" alt="Image preview" width="200">
         }

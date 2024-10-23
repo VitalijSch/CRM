@@ -9,7 +9,8 @@ export class AuthService {
     name: '',
     email: '',
     password: '',
-    user_profile: null
+    userProfile: null,
+    rememberMe: false
   }
 
   public resetUser(): void {
@@ -17,7 +18,8 @@ export class AuthService {
       name: '',
       email: '',
       password: '',
-      user_profile: null
+      userProfile: null,
+      rememberMe: false
     }
   }
 }

@@ -26,15 +26,44 @@ export class SignInComponent {
     this.userForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
+      rememberMe: [false]
     });
+  }
+
+  ngOnInit(): void {
+    const userId = localStorage.getItem('user');
+    if (userId) {
+      this.apiService.getUserById(userId).subscribe(
+        response => {
+          console.log(response)
+          this.userForm.patchValue({
+            email: response.email,
+            password: response.password, // Passwort sollte normalerweise nicht direkt zurückgegeben werden
+            rememberMe: response.remember_me
+          });
+        },
+        error => {
+          console.error('Fehler beim Abrufen der Benutzerdaten:', error);
+        }
+      );
+    }
   }
 
   public signInAsUser(): void {
     const user = this.userForm.value;
+    if (this.userForm.get('rememberMe')?.value) {
+      user.rememberMe = true;
+    }
     this.apiService.getUsers(user).subscribe(
       response => {
-        this.sidebarService.user_data.name = response.name;
-        this.sidebarService.user_data.user_profile = response.user_profile;
+        console.log(response)
+        if (response.remember_me) {
+          localStorage.setItem('user', response.id)
+        } else {
+          localStorage.removeItem('user');
+        }
+        this.sidebarService.userData.name = response.name;
+        this.sidebarService.userData.userProfile = response.user_profile;
         this.isLoginInvalid = false;
         this.router.navigate(['home']);
       },

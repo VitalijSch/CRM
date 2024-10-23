@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth/auth.service';
-import { User } from '../../interfaces/user';
 import { ApiService } from '../../services/api/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -20,8 +19,8 @@ export class SignUpComponent {
 
   public fb: FormBuilder = inject(FormBuilder);
 
-  private authService: AuthService = inject(AuthService);
   private apiService: ApiService = inject(ApiService);
+  private router: Router = inject(Router);
 
   constructor() {
     this.userForm = this.fb.group({
@@ -29,8 +28,8 @@ export class SignUpComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
-      user_profile: ['', [Validators.required]],
-      checkbox: [false, Validators.requiredTrue],
+      userProfile: ['', [Validators.required]],
+      checkbox: [false, Validators.requiredTrue]
     });
   }
 
@@ -61,6 +60,7 @@ export class SignUpComponent {
       this.selectedFile = null;
       this.previewUrl = null;
       console.log(person);
+      this.router.navigate(['auth/sign-in']);
     });
   }
 

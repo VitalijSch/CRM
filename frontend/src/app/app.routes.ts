@@ -4,6 +4,10 @@ import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './home/dashboard/dashboard.component';
+import { CustomerComponent } from './home/customer/customer.component';
+import { OrderComponent } from './home/order/order.component';
+import { ProductComponent } from './home/product/product.component';
+import { AboutComponent } from './home/about/about.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'auth/sign-in', pathMatch: 'full' },
@@ -22,6 +26,10 @@ export const routes: Routes = [
         component: HomeComponent,
         children: [
             { path: 'dashboard', component: DashboardComponent },
+            { path: 'customer', component: CustomerComponent },
+            { path: 'order', component: OrderComponent },
+            { path: 'product', component: ProductComponent },
+            { path: 'about', component: AboutComponent },
         ]
     }
 ];
