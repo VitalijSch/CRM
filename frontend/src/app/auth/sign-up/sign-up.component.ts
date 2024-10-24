@@ -24,11 +24,11 @@ export class SignUpComponent {
 
   constructor() {
     this.userForm = this.fb.group({
-      name: ['', [Validators.required]],
+      username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
-      userProfile: ['', [Validators.required]],
+      profileImage: ['', [Validators.required]],
       checkbox: [false, Validators.requiredTrue]
     });
   }
@@ -44,23 +44,27 @@ export class SignUpComponent {
   public createUser(): void {
     if (this.userForm.valid && this.passwordMatch) {
       const formData = new FormData();
-      formData.append('name', this.userForm.get('name')?.value);
+      formData.append('username', this.userForm.get('username')?.value);
       formData.append('email', this.userForm.get('email')?.value);
       formData.append('password', this.userForm.get('password')?.value);
       if (this.selectedFile) {
-        formData.append('user_profile', this.selectedFile);
+        formData.append('profile_image', this.selectedFile);
       }
       this.addUser(formData);
     }
   }
 
   public addUser(formData: FormData): void {
-    this.apiService.createUser(formData).subscribe(person => {
-      this.userForm.reset();
-      this.selectedFile = null;
-      this.previewUrl = null;
-      console.log(person);
-      this.router.navigate(['auth/sign-in']);
+    this.apiService.registerUser(formData).subscribe({
+      next: () => {
+        this.userForm.reset();
+        this.selectedFile = null;
+        this.previewUrl = null;
+        this.router.navigate(['auth/sign-in']);
+      },
+      error: (error) => {
+        console.error('Registrierungsfehler:', error);
+      }
     });
   }
 

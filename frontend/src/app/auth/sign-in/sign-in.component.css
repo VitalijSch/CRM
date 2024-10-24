@@ -51,17 +51,6 @@ input {
     color: rgb(12, 41, 146, 0.5);
 }
 
-.checkbox-container {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.checkbox-container span {
-    font-size: 10px;
-}
-
 button {
     height: 32px;
     display: flex;

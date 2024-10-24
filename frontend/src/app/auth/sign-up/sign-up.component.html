@@ -1,10 +1,10 @@
 <form [formGroup]="userForm" (ngSubmit)="createUser()">
     <label for="name">Name</label>
     <div class="input-container">
-        <input type="text" name="name" id="name" formControlName="name" placeholder="Enter your name">
-        @if(userForm.get('name')?.invalid && userForm.get('name')?.touched) {
-        @if(userForm.get('name')?.hasError('required')) {
-        <small>Name is required</small>
+        <input type="text" name="username" id="username" formControlName="username" placeholder="Enter your Username">
+        @if(userForm.get('username')?.invalid && userForm.get('username')?.touched) {
+        @if(userForm.get('username')?.hasError('required')) {
+        <small>Username is required</small>
         }
         }
     </div>
@@ -50,7 +50,7 @@
         }
     </div>
     <div class="input-container">
-        <input type="file" (change)="onFileSelected($event)" formControlName="userProfile" accept="image/*">
+        <input type="file" (change)="onFileSelected($event)" formControlName="profileImage" accept="image/*">
         @if(previewUrl) {
         <img [src]="previewUrl" alt="Image preview" width="200">
         }

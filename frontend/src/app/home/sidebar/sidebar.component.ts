@@ -16,13 +16,6 @@ export class SidebarComponent {
 
   public router: Router = inject(Router);
 
-  public ngOnInit(): void {
-    console.log(this.sidebarService.userData)
-    if (this.sidebarService.userData.name === '') {
-      this.router.navigate(['auth/sign-in']);
-    }
-  }
-
   public activeMenu(menu: string): boolean {
     if (this.router.url.includes(menu)) {
       return true;

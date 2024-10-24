@@ -7,19 +7,24 @@ import { User } from '../../interfaces/user';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://127.0.0.1:8000/api/';
+  private token: string | null = null;
+  private apiUrl = 'http://127.0.0.1:8000/api';
 
   private http: HttpClient = inject(HttpClient);
 
-  public getUsers(user: User): Observable<any> {
-    return this.http.post(`${this.apiUrl}login/`, user);
+  public setToken(token: string): void {
+    this.token = token;
   }
 
-  public createUser(formData: FormData): Observable<any> {
-    return this.http.post(`${this.apiUrl}users/`, formData);
+  public refreshToken(refreshToken: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/token/refresh/`, { refresh: refreshToken });
   }
 
-  public getUserById(userId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}users/${userId}/`);
+  public registerUser(data: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/user/register/`, data);
+  }
+
+  public login(data: User): Observable<any> {
+    return this.http.post(`${this.apiUrl}/token/`, data);
   }
 }

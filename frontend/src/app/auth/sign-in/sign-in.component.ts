@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api/api.service';
-import { SidebarService } from '../../services/home/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -20,59 +19,24 @@ export class SignInComponent {
   public router: Router = inject(Router);
 
   private apiService: ApiService = inject(ApiService);
-  private sidebarService: SidebarService = inject(SidebarService);
 
   constructor() {
     this.userForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      rememberMe: [false]
+      username: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
 
-  ngOnInit(): void {
-    const userId = localStorage.getItem('user');
-    if (userId) {
-      this.apiService.getUserById(userId).subscribe(
-        response => {
-          console.log(response)
-          this.userForm.patchValue({
-            email: response.email,
-            password: response.password, // Passwort sollte normalerweise nicht direkt zurückgegeben werden
-            rememberMe: response.remember_me
-          });
-        },
-        error => {
-          console.error('Fehler beim Abrufen der Benutzerdaten:', error);
-        }
-      );
-    }
-  }
-
   public signInAsUser(): void {
-    const user = this.userForm.value;
-    if (this.userForm.get('rememberMe')?.value) {
-      user.rememberMe = true;
-    }
-    this.apiService.getUsers(user).subscribe(
-      response => {
-        console.log(response)
-        if (response.remember_me) {
-          localStorage.setItem('user', response.id)
-        } else {
-          localStorage.removeItem('user');
-        }
-        this.sidebarService.userData.name = response.name;
-        this.sidebarService.userData.userProfile = response.user_profile;
-        this.isLoginInvalid = false;
-        this.router.navigate(['home']);
+    this.apiService.login(this.userForm.value).subscribe({
+      next: (response: any) => {
+        this.apiService.setToken(response.access);
+        localStorage.setItem('accessToken', response.access);
+        this.router.navigate(['/home']);
       },
-      error => {
-        this.isLoginInvalid = true;
-        setTimeout(() => {
-          this.isLoginInvalid = false;
-        }, 3000);
+      error: (error) => {
+        console.error('Login-Fehler:', error);
       }
-    );
+    });
   }
 }

@@ -1,13 +1,13 @@
 <form [formGroup]="userForm" (ngSubmit)="signInAsUser()">
     <div class="input-container">
-        <label for="email">Email address</label>
-        <input type="email" name="email" id="email" formControlName="email" placeholder="Enter your email">
-        @if(userForm.get('email')?.invalid && userForm.get('email')?.touched) {
-        @if(userForm.get('email')?.hasError('required')) {
-        <small>Email is required</small>
+        <label for="username">Username</label>
+        <input type="username" name="username" id="username" formControlName="username" placeholder="Enter your Username">
+        @if(userForm.get('username')?.invalid && userForm.get('username')?.touched) {
+        @if(userForm.get('username')?.hasError('required')) {
+        <small>Username is required</small>
         }
-        @if(userForm.get('email')?.hasError('email')) {
-        <small>Please enter a valid email</small>
+        @if(userForm.get('username')?.hasError('username')) {
+        <small>Please enter a valid Username</small>
         }
         }
     </div>
@@ -26,13 +26,6 @@
         <small>Password must be at least 8 characters long</small>
         }
         }
-        @if (isLoginInvalid) {
-        <small>Check your email and password. The credentials are incorrect.</small>
-        }
-    </div>
-    <div class="checkbox-container">
-        <input type="checkbox" formControlName="rememberMe" name="checkbox" id="checkbox">
-        <span>Remember Me</span>
     </div>
     <button>Sign In</button>
 </form>
