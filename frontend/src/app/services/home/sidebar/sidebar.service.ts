@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { UserData } from '../../../interfaces/user-data';
+import { User } from '../../../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SidebarService {
   public showDropdown: boolean = false;
-  public userData: UserData = {
-    name: '',
-    userProfile: ''
+  public userData: User = {
+    username: '',
+    email: '',
+    profileImage: null,
   }
 
   public toggleShowDropdown(): void {
@@ -17,8 +18,9 @@ export class SidebarService {
 
   public resetUserData(): void {
     this.userData = {
-      name: '',
-      userProfile: ''
+      username: '',
+      email: '',
+      profileImage: null,
     }
   }
 }

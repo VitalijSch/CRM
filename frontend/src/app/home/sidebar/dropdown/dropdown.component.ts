@@ -17,6 +17,7 @@ export class DropdownComponent {
     event.stopPropagation();
     this.sidebarService.toggleShowDropdown();
     this.sidebarService.resetUserData();
+    localStorage.removeItem('accessToken');
     this.router.navigate(['auth/sign-in']);
   }
 }

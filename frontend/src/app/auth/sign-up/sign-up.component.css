@@ -33,6 +33,19 @@ label {
     color: red;
 }
 
+.center-gap {
+    align-items: center;
+    gap: 10px;
+}
+
+.input-container img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 1px solid black;
+}
+
 .input-container .checkbox-container {
     display: flex;
     gap: 10px;

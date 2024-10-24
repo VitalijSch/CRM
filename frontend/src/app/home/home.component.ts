@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { HeaderService } from '../services/home/header/header.service';
 
 @Component({
@@ -13,4 +13,16 @@ import { HeaderService } from '../services/home/header/header.service';
 })
 export class HomeComponent {
   public headerService: HeaderService = inject(HeaderService);
+  private router: Router = inject(Router);
+
+  public ngOnInit(): void {
+    this.checkAccessTokenIsExist();
+  }
+
+  private checkAccessTokenIsExist(): void {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      this.router.navigate(['/auth/sign-in']);
+    }
+  }
 }

@@ -6,12 +6,13 @@
             <p>Enter your Credentials to access your account</p>
             }
             <router-outlet></router-outlet>
-            <div class="or-container">
-                <div class="stroke-container"></div>
-                <span>Or</span>
-                <div class="stroke-container"></div>
-            </div>
-            <app-sign-in-with-social></app-sign-in-with-social>
+        </div>
+        <div class="sign-up-container">
+            @if(router.url.includes('sign-in')) {
+            Don't have an account? <span (click)="router.navigate(['auth/sign-up'])">Sign Up</span>
+            } @else {
+            Have an account? <span (click)="router.navigate(['auth/sign-in'])">Sign In</span>
+            }
         </div>
     </div>
     <img src="../../assets/images/auth/auth.png" alt="picture of a plant">

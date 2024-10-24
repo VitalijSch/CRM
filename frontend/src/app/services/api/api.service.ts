@@ -7,14 +7,9 @@ import { User } from '../../interfaces/user';
   providedIn: 'root'
 })
 export class ApiService {
-  private token: string | null = null;
   private apiUrl = 'http://127.0.0.1:8000/api';
 
   private http: HttpClient = inject(HttpClient);
-
-  public setToken(token: string): void {
-    this.token = token;
-  }
 
   public refreshToken(refreshToken: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/token/refresh/`, { refresh: refreshToken });
@@ -25,6 +20,6 @@ export class ApiService {
   }
 
   public login(data: User): Observable<any> {
-    return this.http.post(`${this.apiUrl}/token/`, data);
+    return this.http.post(`${this.apiUrl}/user/login/`, data);
   }
 }

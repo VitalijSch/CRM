@@ -1,7 +1,8 @@
 <form [formGroup]="userForm" (ngSubmit)="signInAsUser()">
     <div class="input-container">
         <label for="username">Username</label>
-        <input type="username" name="username" id="username" formControlName="username" placeholder="Enter your Username">
+        <input type="username" name="username" id="username" formControlName="username"
+            placeholder="Enter your Username">
         @if(userForm.get('username')?.invalid && userForm.get('username')?.touched) {
         @if(userForm.get('username')?.hasError('required')) {
         <small>Username is required</small>
@@ -12,10 +13,7 @@
         }
     </div>
     <div class="input-container">
-        <div class="label-container">
-            <label for="password">Password</label>
-            <span class="forgot-password">forgot password</span>
-        </div>
+        <label for="password">Password</label>
         <input type="password" name="password" id="password" formControlName="password"
             placeholder="Enter your password">
         @if(userForm.get('password')?.invalid && userForm.get('password')?.touched) {

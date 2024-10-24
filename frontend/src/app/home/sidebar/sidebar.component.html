@@ -1,8 +1,14 @@
 <div class="sidebar-container">
     <div class="header-container">
         <div class="left-container">
-            <img src="{{sidebarService.userData.userProfile}}" alt="profile">
-            <span>{{sidebarService.userData.name}}</span>
+            @if(sidebarService.userData.profileImage !== null) {
+            <img class="profile-image-container" src="http://localhost:8000{{ sidebarService.userData.profileImage }}" alt="profile">
+            } @else {
+            <div class="profile-image-container">
+                {{sidebarService.userData.username.charAt(0)| titlecase}}
+            </div>
+            }
+            <span>{{sidebarService.userData.username}}</span>
         </div>
         <svg (click)="sidebarService.toggleShowDropdown()" width="30" height="30" viewBox="0 0 24 24"
             aria-hidden="true">
@@ -13,7 +19,8 @@
     <app-dropdown></app-dropdown>
     }
     <div class="nav-container">
-        <div (click)="router.navigate(['home/dashboard'])" [ngStyle]="{'background-color': activeMenu('dashboard') ? 'aliceblue' : ''}" class="nav-flex-container">
+        <div (click)="router.navigate(['home/dashboard'])"
+            [ngStyle]="{'background-color': activeMenu('dashboard') ? 'aliceblue' : ''}" class="nav-flex-container">
             <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                     d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z">
@@ -21,7 +28,8 @@
             </svg>
             <span>Dashboard</span>
         </div>
-        <div (click)="router.navigate(['home/customer'])" [ngStyle]="{'background-color': activeMenu('customer') ? 'aliceblue' : ''}" class="nav-flex-container">
+        <div (click)="router.navigate(['home/customer'])"
+            [ngStyle]="{'background-color': activeMenu('customer') ? 'aliceblue' : ''}" class="nav-flex-container">
             <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                     d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z">
@@ -29,7 +37,8 @@
             </svg>
             <span>Customer</span>
         </div>
-        <div (click)="router.navigate(['home/order'])" [ngStyle]="{'background-color': activeMenu('order') ? 'aliceblue' : ''}" class="nav-flex-container">
+        <div (click)="router.navigate(['home/order'])"
+            [ngStyle]="{'background-color': activeMenu('order') ? 'aliceblue' : ''}" class="nav-flex-container">
             <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                     d="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z">
@@ -37,7 +46,8 @@
             </svg>
             <span>Order</span>
         </div>
-        <div (click)="router.navigate(['home/product'])" [ngStyle]="{'background-color': activeMenu('product') ? 'aliceblue' : ''}" class="nav-flex-container">
+        <div (click)="router.navigate(['home/product'])"
+            [ngStyle]="{'background-color': activeMenu('product') ? 'aliceblue' : ''}" class="nav-flex-container">
             <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                     d="M18.36 9l.6 3H5.04l.6-3h12.72M20 4H4v2h16V4zm0 3H4l-1 5v2h1v6h10v-6h4v6h2v-6h1v-2l-1-5zM6 18v-4h6v4H6z">
@@ -45,7 +55,8 @@
             </svg>
             <span>Product</span>
         </div>
-        <div (click)="router.navigate(['home/about'])" [ngStyle]="{'background-color': activeMenu('about') ? 'aliceblue' : ''}" class="nav-flex-container">
+        <div (click)="router.navigate(['home/about'])"
+            [ngStyle]="{'background-color': activeMenu('about') ? 'aliceblue' : ''}" class="nav-flex-container">
             <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                     d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z">

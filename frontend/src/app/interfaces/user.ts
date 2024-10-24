@@ -1,5 +1,5 @@
 export interface User {
-    name: string;
+    username: string;
     email: string;
-    userProfile: File | null;
+    profileImage: File | null;
 }

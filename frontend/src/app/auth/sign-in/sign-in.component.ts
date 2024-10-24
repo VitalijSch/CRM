@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api/api.service';
+import { SidebarService } from '../../services/home/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -19,6 +20,7 @@ export class SignInComponent {
   public router: Router = inject(Router);
 
   private apiService: ApiService = inject(ApiService);
+  private sidebarService: SidebarService = inject(SidebarService);
 
   constructor() {
     this.userForm = this.fb.group({
@@ -30,7 +32,9 @@ export class SignInComponent {
   public signInAsUser(): void {
     this.apiService.login(this.userForm.value).subscribe({
       next: (response: any) => {
-        this.apiService.setToken(response.access);
+        console.log(response.profile_image)
+        this.sidebarService.userData.username = response.username;
+        this.sidebarService.userData.profileImage = response.profile_image;
         localStorage.setItem('accessToken', response.access);
         this.router.navigate(['/home']);
       },

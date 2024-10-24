@@ -35,22 +35,6 @@ input {
     color: red;
 }
 
-.label-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.forgot-password {
-    font-size: 10px;
-    color: #0C2A92;
-    cursor: pointer;
-}
-
-.forgot-password:hover {
-    color: rgb(12, 41, 146, 0.5);
-}
-
 button {
     height: 32px;
     display: flex;
