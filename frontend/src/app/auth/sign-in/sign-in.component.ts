@@ -16,9 +16,9 @@ export class SignInComponent {
 
   public isLoginInvalid: boolean = false;
 
-  public fb: FormBuilder = inject(FormBuilder);
   public router: Router = inject(Router);
 
+  private fb: FormBuilder = inject(FormBuilder);
   private apiService: ApiService = inject(ApiService);
   private sidebarService: SidebarService = inject(SidebarService);
 

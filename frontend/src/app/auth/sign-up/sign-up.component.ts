@@ -17,14 +17,14 @@ export class SignUpComponent {
   public selectedFile: File | null = null;
   public previewUrl: string | ArrayBuffer | null = null;
 
-  public fb: FormBuilder = inject(FormBuilder);
+  private fb: FormBuilder = inject(FormBuilder);
 
   private apiService: ApiService = inject(ApiService);
   private router: Router = inject(Router);
 
   constructor() {
     this.userForm = this.fb.group({
-      username: ['', [Validators.required]],
+      username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]],

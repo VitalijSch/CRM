@@ -25,4 +25,14 @@ export class HomeComponent {
       this.router.navigate(['/auth/sign-in']);
     }
   }
+
+  public navigateToAddNewComponent(): void {
+    if (this.router.url.endsWith('customer')) {
+      this.router.navigate(['/home/add-new-customer']);
+    } else if (this.router.url.endsWith('order')) {
+      this.router.navigate(['/home/add-new-order']);
+    } else {
+      this.router.navigate(['/home/add-new-product']);
+    }
+  }
 }

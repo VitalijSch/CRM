@@ -8,6 +8,9 @@ import { CustomerComponent } from './home/customer/customer.component';
 import { OrderComponent } from './home/order/order.component';
 import { ProductComponent } from './home/product/product.component';
 import { AboutComponent } from './home/about/about.component';
+import { AddNewCustomerComponent } from './home/add-new-customer/add-new-customer.component';
+import { AddNewOrderComponent } from './home/add-new-order/add-new-order.component';
+import { AddNewProductComponent } from './home/add-new-product/add-new-product.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'auth/sign-in', pathMatch: 'full' },
@@ -27,8 +30,11 @@ export const routes: Routes = [
         children: [
             { path: 'dashboard', component: DashboardComponent },
             { path: 'customer', component: CustomerComponent },
+            { path: 'add-new-customer', component: AddNewCustomerComponent },
             { path: 'order', component: OrderComponent },
+            { path: 'add-new-order', component: AddNewOrderComponent },
             { path: 'product', component: ProductComponent },
+            { path: 'add-new-product', component: AddNewProductComponent },
             { path: 'about', component: AboutComponent },
         ]
     }

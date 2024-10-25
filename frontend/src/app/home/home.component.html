@@ -6,7 +6,7 @@
     <div class="main-container">
         <router-outlet></router-outlet>
     </div>
-    @if(router.url.includes('product') || router.url.includes('order') || router.url.includes('customer')) {
+    @if(router.url.endsWith('/product') || router.url.endsWith('/order') || router.url.endsWith('/customer')) {
     <div class="search-create-button-container">
         <button>
             <svg fill="white" width="40" height="40" viewBox="0 0 24 24" aria-hidden="true">
@@ -15,7 +15,7 @@
                 </path>
             </svg>
         </button>
-        <button>
+        <button (click)="navigateToAddNewComponent()">
             <svg fill="white" width="40" height="40" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
             </svg>
