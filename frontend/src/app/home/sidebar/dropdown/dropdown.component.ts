@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { SidebarService } from '../../../services/home/sidebar/sidebar.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dropdown',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './dropdown.component.html',
   styleUrl: './dropdown.component.css'
 })

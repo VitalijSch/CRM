@@ -13,7 +13,7 @@ import { HeaderService } from '../services/home/header/header.service';
 })
 export class HomeComponent {
   public headerService: HeaderService = inject(HeaderService);
-  private router: Router = inject(Router);
+  public router: Router = inject(Router);
 
   public ngOnInit(): void {
     this.checkAccessTokenIsExist();

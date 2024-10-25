@@ -16,5 +16,6 @@
 
 .header-container span {
     color: white;
-    font-size: 24px;
+    font-size: 2.5rem;
+    font-weight: 700;
 }
