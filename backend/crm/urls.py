@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('user_auth.urls')),
+    path('api/', include('client_manager.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='get_token'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='refresh'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
