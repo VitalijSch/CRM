@@ -4,21 +4,21 @@
     <form [formGroup]="customerForm" (ngSubmit)="createNewCustomer()">
         <div class="input-container">
             <div class="label-input-container">
-                <label for="firstName"><span>*</span>First Name</label>
-                <input type="text" name="firstName" id="firstName" formControlName="firstName"
+                <label for="first_name"><span>*</span>First Name</label>
+                <input type="text" name="first_name" id="first_name" formControlName="first_name"
                     placeholder="Enter your First Name">
-                @if(customerForm.get('firstName')?.invalid && customerForm.get('firstName')?.touched) {
-                @if(customerForm.get('firstName')?.hasError('required')) {
+                @if(customerForm.get('first_name')?.invalid && customerForm.get('first_name')?.touched) {
+                @if(customerForm.get('first_name')?.hasError('required')) {
                 <small>First Name is required</small>
                 }
                 }
             </div>
             <div class="label-input-container">
-                <label for="lastName"><span>*</span>Last Name</label>
-                <input type="text" name="lastName" id="lastName" formControlName="lastName"
+                <label for="last_name"><span>*</span>Last Name</label>
+                <input type="text" name="last_name" id="last_name" formControlName="last_name"
                     placeholder="Enter your Last Name">
-                @if(customerForm.get('lastName')?.invalid && customerForm.get('lastName')?.touched) {
-                @if(customerForm.get('lastName')?.hasError('required')) {
+                @if(customerForm.get('last_name')?.invalid && customerForm.get('last_name')?.touched) {
+                @if(customerForm.get('last_name')?.hasError('required')) {
                 <small>Last Name is required</small>
                 }
                 }
@@ -39,10 +39,13 @@
             </div>
             <div class="label-input-container">
                 <label for="mobile"><span>*</span>Mobile</label>
-                <input type="number" name="mobile" id="mobile" formControlName="mobile" placeholder="Enter your Mobile">
+                <input type="tel" name="mobile" id="mobile" formControlName="mobile" placeholder="Enter your Mobile">
                 @if(customerForm.get('mobile')?.invalid && customerForm.get('mobile')?.touched) {
                 @if(customerForm.get('mobile')?.hasError('required')) {
                 <small>Mobile is required</small>
+                }
+                @if(customerForm.get('mobile')?.hasError('pattern')) {
+                <small>Invalid mobile number (digits and '+' only).</small>
                 }
                 }
             </div>

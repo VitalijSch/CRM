@@ -32,9 +32,9 @@ export class SignInComponent {
   public signInAsUser(): void {
     this.apiService.login(this.userForm.value).subscribe({
       next: (response: any) => {
-        console.log(response.profile_image)
         this.sidebarService.userData.username = response.username;
         this.sidebarService.userData.profileImage = response.profile_image;
+        this.apiService.setToken(response.access);
         localStorage.setItem('accessToken', response.access);
         this.router.navigate(['/home']);
       },
