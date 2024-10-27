@@ -1,39 +1,92 @@
 <div class="customer-container">
     <h1>Customers (12)</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Mobile</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (customer of customers; track $index) {
-            <tr>
-                <td>{{customer.first_name}}</td>
-                <td>{{customer.last_name}}</td>
-                <td>{{customer.email}}</td>
-                <td>{{customer.mobile}}</td>
-                <td class="buttons">
-                    <button>
-                        <svg width="30" height="30" fill="white" viewBox="0 0 24 24" aria-hidden="true">
-                            <path
-                                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z">
-                            </path>
-                        </svg>
-                    </button>
-                    <button (click)="deleteCustomer(customer.id)">
-                        <svg width="30" height="30" fill="white" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z">
-                            </path>
-                        </svg>
-                    </button>
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
+    <form [formGroup]="customerForm" (ngSubmit)="updateCustomer()">
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (customer of customers; track $index) {
+                <tr>
+                    @if(customer.is_edit) {
+                    <td>
+                        <input type="text" name="first_name" formControlName="first_name">
+                        @if(customerForm.get('first_name')?.invalid && customerForm.get('first_name')?.touched) {
+                        @if(customerForm.get('first_name')?.hasError('required')) {
+                        <small>First Name is required</small>
+                        }
+                        }
+                    </td>
+                    <td>
+                        <input type="text" name="last_name" formControlName="last_name">
+                        @if(customerForm.get('last_name')?.invalid && customerForm.get('last_name')?.touched) {
+                        @if(customerForm.get('last_name')?.hasError('required')) {
+                        <small>Last Name is required</small>
+                        }
+                        }
+                    </td>
+                    <td>
+                        <input type="email" name="email" formControlName="email">
+                        @if(customerForm.get('email')?.invalid && customerForm.get('email')?.touched) {
+                        @if(customerForm.get('email')?.hasError('required')) {
+                        <small>Email is required</small>
+                        }
+                        @if(customerForm.get('email')?.hasError('email')) {
+                        <small>Please enter a valid email</small>
+                        }
+                        }
+                    </td>
+                    <td>
+                        <input type="tel" name="mobile" formControlName="mobile">
+                        @if(customerForm.get('mobile')?.invalid && customerForm.get('mobile')?.touched) {
+                        @if(customerForm.get('mobile')?.hasError('required')) {
+                        <small>Mobile is required</small>
+                        }
+                        @if(customerForm.get('mobile')?.hasError('pattern')) {
+                        <small>Invalid mobile number (digits and '+' only).</small>
+                        }
+                        }
+                    </td>
+                    } @else {
+                    <td>{{customer.first_name}}</td>
+                    <td>{{customer.last_name}}</td>
+                    <td>{{customer.email}}</td>
+                    <td>{{customer.mobile}}</td>
+                    }
+                    <td class="buttons">
+                        @if(customer.is_edit) {
+                        <button>
+                            <svg width="30" height="30" fill="white" viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z">
+                                </path>
+                            </svg>
+                        </button>
+                        } @else {
+                        <button (click)="setCurrentCustomer($index, customer)">
+                            <svg width="30" height="30" fill="white" viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z">
+                                </path>
+                            </svg>
+                        </button>
+                        }
+                        <button type="button" (click)="deleteCustomer(customer.id)">
+                            <svg width="30" height="30" fill="white" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z">
+                                </path>
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </form>
 </div>

@@ -29,7 +29,6 @@ export class AddNewCustomerComponent {
   }
 
   public createNewCustomer(): void {
-    console.log(this.customerForm.value)
     this.apiService.createCustomer(this.customerForm.value).subscribe({
       next: () => {
         this.customerForm.reset();

@@ -45,6 +45,10 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/customers/`, customer, { headers: this.getHeaders() });
   }
 
+  public updateCustomer(id: number, customer: Customer): Observable<any> {
+    return this.http.put(`${this.apiUrl}/customers/update/${id}/`, customer, { headers: this.getHeaders() });
+  }
+
   public deleteCustomer(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/customers/delete/${id}/`, { headers: this.getHeaders() });
   }
