@@ -29,9 +29,12 @@ export class CustomerComponent {
     });
   }
 
+  public ngOnInit(): void {
+    this.homeService.filteredArray = this.homeService.customers();
+  }
+
   public updateCustomer(): void {
-    let indexOfCustomer = this.homeService.customers().indexOf(this.currentCustomer);
-    this.toggleEditCustomer(indexOfCustomer);
+    this.toggleEditCustomer(this.currentCustomer.id);
     this.updateCurrentCustomer();
     this.apiService.updateCustomer(this.currentCustomer.id, this.currentCustomer).subscribe({
       error: (error) => {
@@ -51,6 +54,10 @@ export class CustomerComponent {
     this.apiService.deleteCustomer(id).subscribe({
       next: () => {
         this.homeService.customers.update(customers => customers.filter(customer => customer.id !== id));
+        const index = this.homeService.filteredArray.findIndex(c => c.id === id);
+        if (index !== -1) {
+          this.homeService.filteredArray.splice(index, 1);
+        }
       },
       error: (error) => {
         console.error('Fehler beim Löschen der Notiz:', error);
@@ -58,14 +65,14 @@ export class CustomerComponent {
     });
   }
 
-  public setCurrentCustomer(index: number, customer: Customer): void {
+  public setCurrentCustomer(customer: Customer): void {
     this.resetCurrentCustomer();
     this.currentCustomer = customer;
     this.homeService.customers().forEach(customer => {
       customer.is_edit = false;
     });
     this.setValuesForInputfields();
-    this.toggleEditCustomer(index);
+    this.toggleEditCustomer(customer.id);
   }
 
   private resetCurrentCustomer(): void {
@@ -88,7 +95,10 @@ export class CustomerComponent {
     });
   }
 
-  public toggleEditCustomer(index: number): void {
-    this.homeService.customers()[index].is_edit = !this.homeService.customers()[index].is_edit;
+  private toggleEditCustomer(id: number): void {
+    const customer = this.homeService.customers().find(c => c.id === id);
+    if (customer) {
+      customer.is_edit = !customer.is_edit;
+    }
   }
 }

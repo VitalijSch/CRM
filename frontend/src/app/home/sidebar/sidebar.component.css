@@ -21,8 +21,8 @@
 }
 
 .profile-image-container {
-    width: 80px;
-    height: 80px;
+    width: 65px;
+    height: 65px;
     object-fit: cover;
     border-radius: 50%;
     border: 1px solid black;
@@ -36,15 +36,16 @@
 }
 
 .header-container .left-container span {
-    height: 80px;
-    font-size: 1.8rem;
+    height: 65px;
+    font-size: 2rem;
     font-weight: 700;
     display: flex;
     align-items: center;
+    text-shadow: 3px 3px 0px rgb(0, 0, 0, 0.5);
 }
 
 .header-container svg {
-    margin: 20px 0;
+    margin: 15px 0;
     cursor: pointer;
     border-radius: 50%;
     border: 1px solid transparent;

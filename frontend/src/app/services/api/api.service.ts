@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../../interfaces/user';
 import { Customer } from '../../interfaces/customer';
+import { Order } from '../../interfaces/order';
 
 @Injectable({
   providedIn: 'root'
@@ -51,5 +52,21 @@ export class ApiService {
 
   public deleteCustomer(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/customers/delete/${id}/`, { headers: this.getHeaders() });
+  }
+
+  public getOrders(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/orders/`, { headers: this.getHeaders() });
+  }
+
+  public createOrder(order: Order): Observable<any> {
+    return this.http.post(`${this.apiUrl}/orders/`, order, { headers: this.getHeaders() });
+  }
+
+  public updateOrder(id: number, order: Order): Observable<any> {
+    return this.http.put(`${this.apiUrl}/orders/update/${id}/`, order, { headers: this.getHeaders() });
+  }
+
+  public deleteOrder(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/orders/delete/${id}/`, { headers: this.getHeaders() });
   }
 }

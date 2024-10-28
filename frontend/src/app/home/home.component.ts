@@ -52,44 +52,11 @@ export class HomeComponent {
   }
 
   public handleSearch(): void {
-    if (this.router.url.endsWith('/customer')) {
-      this.currentArray = this.homeService.customers();
-    } else if (this.router.url.endsWith('/order')) {
-      console.log('order');
-    } else {
-      console.log('product');
-    }
-    if (this.currentArray.length === 0) {
-      if (this.router.url.endsWith('/customer')) {
-        this.currentArray = this.homeService.customers();
-      } else if (this.router.url.endsWith('/order')) {
-        console.log('order');
-      } else {
-        console.log('product');
-      }
-    }
-    let filteredArray = this.currentArray.filter(item =>
+    this.homeService.filteredArray = this.homeService.customers().filter(item =>
       item.first_name.toLowerCase().includes(this.search.toLowerCase()) ||
       item.last_name.toLowerCase().includes(this.search.toLowerCase()) ||
       item.email.toLowerCase().includes(this.search.toLowerCase()) ||
       item.mobile.toLowerCase().includes(this.search.toLowerCase())
     );
-    if (this.search === '') {
-      if (this.router.url.endsWith('/customer')) {
-        this.homeService.getCustomers();
-      } else if (this.router.url.endsWith('/order')) {
-        console.log('order');
-      } else {
-        console.log('product');
-      }
-    } else {
-      if (this.router.url.endsWith('/customer')) {
-        this.homeService.customers.set(filteredArray);
-      } else if (this.router.url.endsWith('/order')) {
-        console.log('order');
-      } else {
-        console.log('product');
-      }
-    }
   }
 }
