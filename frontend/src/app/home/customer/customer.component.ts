@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ApiService } from '../../services/api/api.service';
 import { Customer } from '../../interfaces/customer';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HomeService } from '../../services/home/home.service';
 
 @Component({
   selector: 'app-customer',
@@ -12,8 +13,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class CustomerComponent {
   public customerForm: FormGroup;
-  public customers!: Customer[];
   public currentCustomer!: Customer;
+
+  public homeService: HomeService = inject(HomeService);
 
   private apiService: ApiService = inject(ApiService);
   private fb: FormBuilder = inject(FormBuilder);
@@ -27,29 +29,11 @@ export class CustomerComponent {
     });
   }
 
-  public ngOnInit(): void {
-    this.getCustomers();
-  }
-
-  private getCustomers() {
-    this.apiService.getCustomers().subscribe({
-      next: (data: any) => {
-        this.customers = data;
-      },
-      error: (error) => {
-        console.error('Fehler beim Abrufen der Notizen:', error);
-      }
-    });
-  }
-
   public updateCustomer(): void {
-    let indexOfCustomer = this.customers.indexOf(this.currentCustomer);
+    let indexOfCustomer = this.homeService.customers().indexOf(this.currentCustomer);
     this.toggleEditCustomer(indexOfCustomer);
     this.updateCurrentCustomer();
     this.apiService.updateCustomer(this.currentCustomer.id, this.currentCustomer).subscribe({
-      next: () => {
-        this.getCustomers();
-      },
       error: (error) => {
         console.error('Fehler beim Löschen der Notiz:', error);
       }
@@ -66,7 +50,7 @@ export class CustomerComponent {
   public deleteCustomer(id: number): void {
     this.apiService.deleteCustomer(id).subscribe({
       next: () => {
-        this.getCustomers();
+        this.homeService.customers.update(customers => customers.filter(customer => customer.id !== id));
       },
       error: (error) => {
         console.error('Fehler beim Löschen der Notiz:', error);
@@ -77,7 +61,7 @@ export class CustomerComponent {
   public setCurrentCustomer(index: number, customer: Customer): void {
     this.resetCurrentCustomer();
     this.currentCustomer = customer;
-    this.customers.forEach(customer => {
+    this.homeService.customers().forEach(customer => {
       customer.is_edit = false;
     });
     this.setValuesForInputfields();
@@ -105,6 +89,6 @@ export class CustomerComponent {
   }
 
   public toggleEditCustomer(index: number): void {
-    this.customers[index].is_edit = !this.customers[index].is_edit;
+    this.homeService.customers()[index].is_edit = !this.homeService.customers()[index].is_edit;
   }
 }

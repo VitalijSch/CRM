@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api/api.service';
+import { HomeService } from '../../services/home/home.service';
 
 @Component({
   selector: 'app-add-new-customer',
@@ -18,6 +19,7 @@ export class AddNewCustomerComponent {
 
   private fb: FormBuilder = inject(FormBuilder);
   private apiService: ApiService = inject(ApiService);
+  private homeService: HomeService = inject(HomeService);
 
   constructor() {
     this.customerForm = this.fb.group({
@@ -30,8 +32,9 @@ export class AddNewCustomerComponent {
 
   public createNewCustomer(): void {
     this.apiService.createCustomer(this.customerForm.value).subscribe({
-      next: () => {
+      next: (newCustomer) => {
         this.customerForm.reset();
+        this.homeService.customers.update(customers => [...customers, newCustomer]);
       },
       error: (error) => {
         console.error('Fehler beim Erstellen der Notiz:', error);
