@@ -1,14 +1,14 @@
 <div class="product-container">
-    <h1>Products ({{homeService.filteredArray.length}})</h1>
+    <h1>Produkte ({{homeService.filteredArray.length}})</h1>
     <form [formGroup]="productForm" (ngSubmit)="updateProduct()">
         <table>
             <thead>
                 <tr>
-                    <th>Product</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Total In Stock</th>
-                    <th>Actions</th>
+                    <th>Produkt</th>
+                    <th>Kategorie</th>
+                    <th>Preis</th>
+                    <th>Gesamtbestand</th>
+                    <th>Aktionen</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,7 +19,7 @@
                         <input type="text" name="product" formControlName="product">
                         @if(productForm.get('product')?.invalid && productForm.get('product')?.touched) {
                         @if(productForm.get('product')?.hasError('required')) {
-                        <small>Product is required</small>
+                        <small>Produkt ist erforderlich</small>
                         }
                         }
                     </td>
@@ -31,7 +31,7 @@
                         </select>
                         @if(productForm.get('category')?.invalid && productForm.get('category')?.touched) {
                         @if(productForm.get('category')?.hasError('required')) {
-                        <small>Please select a category</small>
+                        <small>Bitte wähle eine Kategorie aus</small>
                         }
                         }
                     </td>
@@ -39,10 +39,10 @@
                         <input type="number" name="price" formControlName="price">
                         @if(productForm.get('price')?.invalid && productForm.get('price')?.touched) {
                         @if(productForm.get('price')?.hasError('required')) {
-                        <small>Price is required</small>
+                        <small>Preis ist erforderlich</small>
                         }
                         @if(productForm.get('price')?.hasError('pattern')) {
-                        <small>Please enter a valid price (a dot is allowed)</small>
+                        <small>Bitte geben sie einen gültigen Preis ein(Punkt ist erlaubt)</small>
                         }
                         }
                     </td>
@@ -50,17 +50,17 @@
                         <input type="number" name="total_in_stock" formControlName="total_in_stock">
                         @if(productForm.get('total_in_stock')?.invalid && productForm.get('total_in_stock')?.touched) {
                         @if(productForm.get('total_in_stock')?.hasError('required')) {
-                        <small>Total In Stock is required</small>
+                        <small>Gesamtbestand ist erforderlich</small>
                         }
                         @if(productForm.get('total_in_stock')?.hasError('pattern')) {
-                        <small>Please enter a number greater than 0</small>
+                        <small>Bitte geben Sie eine Nummer ein die größer ist als 0</small>
                         }
                         }
                     </td>
                     } @else {
                     <td>{{product.product}}</td>
                     <td>{{product.category}}</td>
-                    <td>{{product.price}}</td>
+                    <td>{{product.price}} €</td>
                     <td>{{product.total_in_stock}}</td>
                     }
                     <td class="buttons">

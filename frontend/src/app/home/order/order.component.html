@@ -1,15 +1,15 @@
 <div class="order-container">
-    <h1>Orders ({{homeService.filteredArray.length}})</h1>
+    <h1>Bestellungen ({{homeService.filteredArray.length}})</h1>
     <form [formGroup]="orderForm" (ngSubmit)="updateOrder()">
         <table>
             <thead>
                 <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Amount</th>
-                    <th>Customer</th>
-                    <th>Order Date</th>
-                    <th>Actions</th>
+                    <th>Produkt</th>
+                    <th>Menge</th>
+                    <th>Gesamtpreis</th>
+                    <th>Besteller</th>
+                    <th>Bestelldatum</th>
+                    <th>Aktionen</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,9 +21,14 @@
                     </td>
                     <td>
                         <input type="number" name="quantity" formControlName="quantity">
+                        @if(orderForm.get('quantity')?.invalid && orderForm.get('quantity')?.touched) {
+                        @if(orderForm.get('quantity')?.hasError('required')) {
+                        <small>Menge ist erforderlich</small>
+                        }
+                        }
                     </td>
                     <td>
-                        <input type="text" name="amount" formControlName="amount">
+                        <input type="number" name="amount" formControlName="amount">
                     </td>
                     <td>
                         <input type="text" name="customer" formControlName="customer">
@@ -34,7 +39,7 @@
                     } @else {
                     <td>{{order.product}}</td>
                     <td>{{order.quantity}}</td>
-                    <td>{{order.amount}}</td>
+                    <td>{{replaceCommaWithDot(order.quantity, order.amount)}}</td>
                     <td>{{order.customer}}</td>
                     <td>{{order.order_date}}</td>
                     }

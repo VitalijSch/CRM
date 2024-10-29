@@ -1,14 +1,14 @@
 <div class="customer-container">
-    <h1>Customers ({{homeService.filteredArray.length}})</h1>
+    <h1>Kunden ({{homeService.filteredArray.length}})</h1>
     <form [formGroup]="customerForm" (ngSubmit)="updateCustomer()">
         <table>
             <thead>
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Mobile</th>
-                    <th>Actions</th>
+                    <th>Vorname</th>
+                    <th>Nachname</th>
+                    <th>E-Mail</th>
+                    <th>Handynummer</th>
+                    <th>Aktionen</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,7 +19,7 @@
                         <input type="text" name="first_name" formControlName="first_name">
                         @if(customerForm.get('first_name')?.invalid && customerForm.get('first_name')?.touched) {
                         @if(customerForm.get('first_name')?.hasError('required')) {
-                        <small>First Name is required</small>
+                        <small>Vorname ist erforderlich</small>
                         }
                         }
                     </td>
@@ -27,7 +27,7 @@
                         <input type="text" name="last_name" formControlName="last_name">
                         @if(customerForm.get('last_name')?.invalid && customerForm.get('last_name')?.touched) {
                         @if(customerForm.get('last_name')?.hasError('required')) {
-                        <small>Last Name is required</small>
+                        <small>Nachname ist erforderlich</small>
                         }
                         }
                     </td>
@@ -35,10 +35,10 @@
                         <input type="email" name="email" formControlName="email">
                         @if(customerForm.get('email')?.invalid && customerForm.get('email')?.touched) {
                         @if(customerForm.get('email')?.hasError('required')) {
-                        <small>Email is required</small>
+                        <small>E-Mail ist erforderlich</small>
                         }
                         @if(customerForm.get('email')?.hasError('email')) {
-                        <small>Please enter a valid email</small>
+                        <small>Bitte geben Sie eine gültige E-Mail-Adresse ein</small>
                         }
                         }
                     </td>
@@ -46,10 +46,10 @@
                         <input type="tel" name="mobile" formControlName="mobile">
                         @if(customerForm.get('mobile')?.invalid && customerForm.get('mobile')?.touched) {
                         @if(customerForm.get('mobile')?.hasError('required')) {
-                        <small>Mobile is required</small>
+                        <small>Handynummer ist erforderlich</small>
                         }
                         @if(customerForm.get('mobile')?.hasError('pattern')) {
-                        <small>Invalid mobile number (digits and '+' only).</small>
+                        <small>Bitte geben Sie eine gültige Handynummer ein (Nummern und '+' erlaubt)</small>
                         }
                         }
                     </td>

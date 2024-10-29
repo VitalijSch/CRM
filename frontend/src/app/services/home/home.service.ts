@@ -9,11 +9,11 @@ import { Product } from '../../interfaces/product';
 })
 export class HomeService {
   public categories: string[] = [
-    'Fruits and Vegetables',
-    'Meat and Fish',
-    'Dairy Products',
-    'Bakery',
-    'Snacks'
+    'Obst',
+    'Gemüse',
+    'Fleisch',
+    'Fisch',
+    'Milchprodukte'
   ];
 
   public customers = signal<Customer[]>([]);
@@ -25,7 +25,7 @@ export class HomeService {
 
   constructor() {
     this.getCustomers();
-    // this.getOrders();
+    this.getOrders();
     this.getProducts();
   }
 

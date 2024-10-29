@@ -12,4 +12,9 @@ urlpatterns = [
          views.ProductUpdateView.as_view(), name='product-update'),
     path('products/delete/<int:pk>/',
          views.ProductDeleteView.as_view(), name='products-delete'),
+    path('orders/', views.OrderListCreateView.as_view(), name='orders'),
+    path('orders/update/<int:pk>/',
+         views.OrderUpdateView.as_view(), name='order-update'),
+    path('orders/delete/<int:pk>/',
+         views.OrderDeleteView.as_view(), name='orders-delete'),
 ]

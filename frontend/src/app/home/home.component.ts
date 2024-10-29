@@ -17,7 +17,6 @@ import { CommonModule } from '@angular/common';
 export class HomeComponent {
   public search!: string;
   public showSearchfield: boolean = false;
-  private currentArray!: any[];
 
   public headerService: HeaderService = inject(HeaderService);
   public router: Router = inject(Router);
@@ -68,12 +67,12 @@ export class HomeComponent {
         String(item.total_in_stock).toLowerCase().includes(this.search.toLowerCase())
       );
     } else {
-      // this.homeService.filteredArray = this.homeService.customers().filter(item =>
-      //   item.first_name.toLowerCase().includes(this.search.toLowerCase()) ||
-      //   item.last_name.toLowerCase().includes(this.search.toLowerCase()) ||
-      //   item.email.toLowerCase().includes(this.search.toLowerCase()) ||
-      //   item.mobile.toLowerCase().includes(this.search.toLowerCase())
-      // );
+      this.homeService.filteredArray = this.homeService.orders().filter(item =>
+        item.product.toLowerCase().includes(this.search.toLowerCase()) ||
+        String(item.quantity).toLowerCase().includes(this.search.toLowerCase()) ||
+        item.customer.toLowerCase().includes(this.search.toLowerCase()) ||
+        String(item.order_date).toLowerCase().includes(this.search.toLowerCase())
+      );
     }
   }
 }

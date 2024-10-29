@@ -24,14 +24,13 @@ class Product(models.Model):
         return f"{self.product} {self.category}"
 
 
-# class Order(models.Model):
-#     product = models.CharField(max_length=50)
-#     quantity = models.IntegerField()
-#     amount = models.CharField()
-#     customer = models.ForeignKey(
-#         Customer, on_delete=models.CASCADE, related_name='orders')
-#     order_date = models.DateTimeField(default=timezone.now)
-#     is_edit = models.BooleanField(default=False)
+class Order(models.Model):
+    product = models.CharField(max_length=50)
+    quantity = models.IntegerField()
+    amount = models.FloatField()
+    customer = models.CharField(max_length=50)
+    order_date = models.DateField(auto_now=True)
+    is_edit = models.BooleanField(default=False)
 
-#     def __str__(self):
-#         return f"{self.product} for {self.customer}"
+    def __str__(self):
+        return f"{self.product} for {self.customer}"

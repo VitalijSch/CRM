@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Customer, Product
+from .models import Customer, Product, Order
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -14,3 +14,10 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = ['id', 'product', 'category',
                   'price', 'total_in_stock', 'is_edit']
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['id', 'product', 'quantity',
+                  'amount', 'customer', 'order_date', 'is_edit']

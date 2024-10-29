@@ -105,4 +105,10 @@ export class OrderComponent {
       order.is_edit = !order.is_edit;
     }
   }
+
+  public replaceCommaWithDot(quantity: number, amount: number): string {
+    let result = quantity * amount;
+    let resultWithComma = String(result).replace('.', ',');
+    return `${resultWithComma} €`;
+  }
 }
