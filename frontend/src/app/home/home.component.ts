@@ -5,11 +5,12 @@ import { Router, RouterOutlet } from '@angular/router';
 import { HeaderService } from '../services/home/header/header.service';
 import { FormsModule } from '@angular/forms';
 import { HomeService } from '../services/home/home.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, SidebarComponent, RouterOutlet, FormsModule],
+  imports: [HeaderComponent, SidebarComponent, RouterOutlet, FormsModule, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -52,11 +53,27 @@ export class HomeComponent {
   }
 
   public handleSearch(): void {
-    this.homeService.filteredArray = this.homeService.customers().filter(item =>
-      item.first_name.toLowerCase().includes(this.search.toLowerCase()) ||
-      item.last_name.toLowerCase().includes(this.search.toLowerCase()) ||
-      item.email.toLowerCase().includes(this.search.toLowerCase()) ||
-      item.mobile.toLowerCase().includes(this.search.toLowerCase())
-    );
+    if (this.router.url.endsWith('/customer')) {
+      this.homeService.filteredArray = this.homeService.customers().filter(item =>
+        item.first_name.toLowerCase().includes(this.search.toLowerCase()) ||
+        item.last_name.toLowerCase().includes(this.search.toLowerCase()) ||
+        item.email.toLowerCase().includes(this.search.toLowerCase()) ||
+        item.mobile.toLowerCase().includes(this.search.toLowerCase())
+      );
+    } else if (this.router.url.endsWith('/product')) {
+      this.homeService.filteredArray = this.homeService.products().filter(item =>
+        item.product.toLowerCase().includes(this.search.toLowerCase()) ||
+        item.category.toLowerCase().includes(this.search.toLowerCase()) ||
+        item.price.toLowerCase().includes(this.search.toLowerCase()) ||
+        String(item.total_in_stock).toLowerCase().includes(this.search.toLowerCase())
+      );
+    } else {
+      // this.homeService.filteredArray = this.homeService.customers().filter(item =>
+      //   item.first_name.toLowerCase().includes(this.search.toLowerCase()) ||
+      //   item.last_name.toLowerCase().includes(this.search.toLowerCase()) ||
+      //   item.email.toLowerCase().includes(this.search.toLowerCase()) ||
+      //   item.mobile.toLowerCase().includes(this.search.toLowerCase())
+      // );
+    }
   }
 }

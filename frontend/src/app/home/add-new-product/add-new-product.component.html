@@ -1,1 +1,70 @@
-<p>add-new-product works!</p>
+<div class="add-new-product-container">
+    <h1>Add New Product</h1>
+    <hr>
+    <form [formGroup]="productForm" (ngSubmit)="createNewProduct()">
+        <div class="input-container">
+            <div class="label-input-container">
+                <label for="product"><span>*</span>Product</label>
+                <input type="text" name="product" id="product" formControlName="product"
+                    placeholder="Enter your Product">
+                @if(productForm.get('product')?.invalid && productForm.get('product')?.touched) {
+                @if(productForm.get('product')?.hasError('required')) {
+                <small>Product is required</small>
+                }
+                }
+            </div>
+            <div class="label-input-container">
+                <label for="category"><span>*</span>Category</label>
+                <select id="category" formControlName="category">
+                    <option value="" disabled selected>Select a category</option>
+                    @for (category of homeService.categories; track $index) {
+                    <option [value]="category">{{ category }}</option>
+                    }
+                </select>
+                @if(productForm.get('category')?.invalid && productForm.get('category')?.touched) {
+                @if(productForm.get('category')?.hasError('required')) {
+                <small>Please select a category</small>
+                }
+                }
+            </div>
+        </div>
+        <div class="input-container">
+            <div class="label-input-container">
+                <label for="price"><span>*</span>Price</label>
+                <input type="number" name="price" id="price" formControlName="price" placeholder="Enter your Price">
+                @if(productForm.get('price')?.invalid && productForm.get('price')?.touched) {
+                @if(productForm.get('price')?.hasError('required')) {
+                <small>Price is required</small>
+                }
+                }
+            </div>
+            <div class="label-input-container">
+                <label for="total_in_stock"><span>*</span>Total in Stock</label>
+                <input type="number" name="total_in_stock" id="total_in_stock" formControlName="total_in_stock"
+                    placeholder="Enter your Total in Stock">
+                @if(productForm.get('total_in_stock')?.invalid && productForm.get('total_in_stock')?.touched) {
+                @if(productForm.get('total_in_stock')?.hasError('required')) {
+                <small>Total in Stock is required</small>
+                }
+                }
+            </div>
+        </div>
+        <hr>
+        <div class="buttons-container">
+            <button type="button" (click)="router.navigate(['/home/product'])">
+                <svg width="40" height="40" fill="white" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z"></path>
+                </svg>
+                <span>Back</span>
+            </button>
+            <button [ngClass]="{'save-button': productForm.valid}" [disabled]="productForm.invalid">
+                <svg width="40" height="40" fill="white" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                        d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z">
+                    </path>
+                </svg>
+                <span>Save</span>
+            </button>
+        </div>
+    </form>
+</div>

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from '../../interfaces/user';
 import { Customer } from '../../interfaces/customer';
 import { Order } from '../../interfaces/order';
+import { Product } from '../../interfaces/product';
 
 @Injectable({
   providedIn: 'root'
@@ -68,5 +69,21 @@ export class ApiService {
 
   public deleteOrder(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/orders/delete/${id}/`, { headers: this.getHeaders() });
+  }
+
+  public getProducts(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/products/`, { headers: this.getHeaders() });
+  }
+
+  public createProduct(product: Product): Observable<any> {
+    return this.http.post(`${this.apiUrl}/products/`, product, { headers: this.getHeaders() });
+  }
+
+  public updateProduct(id: number, product: Product): Observable<any> {
+    return this.http.put(`${this.apiUrl}/products/update/${id}/`, product, { headers: this.getHeaders() });
+  }
+
+  public deleteProduct(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/products/delete/${id}/`, { headers: this.getHeaders() });
   }
 }

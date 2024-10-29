@@ -1,10 +1,15 @@
 from django.urls import path
-from .views import CustomerListCreateView, CustomerDeleteView, CustomerUpdateView
+from . import views
 
 urlpatterns = [
-    path('customers/', CustomerListCreateView.as_view(), name='customers'),
+    path('customers/', views.CustomerListCreateView.as_view(), name='customers'),
     path('customers/update/<int:pk>/',
-         CustomerUpdateView.as_view(), name='customer-update'),
+         views.CustomerUpdateView.as_view(), name='customer-update'),
     path('customers/delete/<int:pk>/',
-         CustomerDeleteView.as_view(), name='customers-delete'),
+         views.CustomerDeleteView.as_view(), name='customers-delete'),
+    path('products/', views.ProductListCreateView.as_view(), name='products'),
+    path('products/update/<int:pk>/',
+         views.ProductUpdateView.as_view(), name='product-update'),
+    path('products/delete/<int:pk>/',
+         views.ProductDeleteView.as_view(), name='products-delete'),
 ]

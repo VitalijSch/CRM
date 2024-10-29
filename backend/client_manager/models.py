@@ -13,6 +13,17 @@ class Customer(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
+class Product(models.Model):
+    product = models.CharField(max_length=50)
+    category = models.CharField(max_length=50)
+    price = models.FloatField()
+    total_in_stock = models.IntegerField()
+    is_edit = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.product} {self.category}"
+
+
 # class Order(models.Model):
 #     product = models.CharField(max_length=50)
 #     quantity = models.IntegerField()
