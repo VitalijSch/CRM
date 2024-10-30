@@ -1,50 +1,54 @@
 <div class="add-new-product-container">
-    <h1>Add New Product</h1>
+    <h1>Neues Produkt hinzufügen</h1>
     <hr>
     <form [formGroup]="productForm" (ngSubmit)="createNewProduct()">
         <div class="input-container">
             <div class="label-input-container">
-                <label for="product"><span>*</span>Product</label>
+                <label for="product"><span>*</span>Produkt</label>
                 <input type="text" name="product" id="product" formControlName="product"
-                    placeholder="Enter your Product">
+                    placeholder="Geben Sie das Produkt ein">
                 @if(productForm.get('product')?.invalid && productForm.get('product')?.touched) {
                 @if(productForm.get('product')?.hasError('required')) {
-                <small>Product is required</small>
+                <small>Produkt ist erforderlich</small>
                 }
                 }
             </div>
             <div class="label-input-container">
-                <label for="category"><span>*</span>Category</label>
+                <label for="category"><span>*</span>Kategorie</label>
                 <select id="category" formControlName="category">
-                    <option value="" disabled selected>Select a category</option>
+                    <option value="" disabled selected>Wählen Sie eine Kategorie aus</option>
                     @for (category of homeService.categories; track $index) {
                     <option [value]="category">{{ category }}</option>
                     }
                 </select>
                 @if(productForm.get('category')?.invalid && productForm.get('category')?.touched) {
                 @if(productForm.get('category')?.hasError('required')) {
-                <small>Please select a category</small>
+                <small>Bitte wählen Sie eine Kategorie aus</small>
                 }
                 }
             </div>
         </div>
         <div class="input-container">
             <div class="label-input-container">
-                <label for="price"><span>*</span>Price</label>
-                <input type="number" name="price" id="price" formControlName="price" placeholder="Enter your Price">
+                <label for="price"><span>*</span>Preis</label>
+                <input type="number" name="price" id="price" formControlName="price"
+                    placeholder="Geben Sie den Preis ein">
                 @if(productForm.get('price')?.invalid && productForm.get('price')?.touched) {
                 @if(productForm.get('price')?.hasError('required')) {
-                <small>Price is required</small>
+                <small>Preis ist erforderlich</small>
                 }
                 }
             </div>
             <div class="label-input-container">
-                <label for="total_in_stock"><span>*</span>Total in Stock</label>
-                <input type="number" name="total_in_stock" id="total_in_stock" formControlName="total_in_stock"
-                    placeholder="Enter your Total in Stock">
+                <label for="total_in_stock"><span>*</span>Gesamtbestand</label>
+                <input min="1" type="number" name="total_in_stock" id="total_in_stock" formControlName="total_in_stock"
+                    placeholder="Geben Sie den Gesamtbestand ein">
                 @if(productForm.get('total_in_stock')?.invalid && productForm.get('total_in_stock')?.touched) {
                 @if(productForm.get('total_in_stock')?.hasError('required')) {
-                <small>Total in Stock is required</small>
+                <small>Gesamtbestand ist erforderlich</small>
+                }
+                @if(productForm.get('total_in_stock')?.hasError('min')) {
+                <small>Gesamtbestand muss mindestens 1 betragen</small>
                 }
                 }
             </div>
@@ -55,7 +59,7 @@
                 <svg width="40" height="40" fill="white" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z"></path>
                 </svg>
-                <span>Back</span>
+                <span>Zurück</span>
             </button>
             <button [ngClass]="{'save-button': productForm.valid}" [disabled]="productForm.invalid">
                 <svg width="40" height="40" fill="white" viewBox="0 0 24 24" aria-hidden="true">
@@ -63,7 +67,7 @@
                         d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z">
                     </path>
                 </svg>
-                <span>Save</span>
+                <span>Speichern</span>
             </button>
         </div>
     </form>

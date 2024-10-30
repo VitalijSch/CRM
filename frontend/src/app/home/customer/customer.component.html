@@ -41,6 +41,9 @@
                         <small>Bitte geben Sie eine gültige E-Mail-Adresse ein</small>
                         }
                         }
+                        @if(emailExist) {
+                        <small>Diese E-Mail existiert bereits</small>
+                        }
                     </td>
                     <td>
                         <input type="tel" name="mobile" formControlName="mobile">

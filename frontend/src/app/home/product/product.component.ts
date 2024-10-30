@@ -101,4 +101,9 @@ export class ProductComponent {
       product.is_edit = !product.is_edit;
     }
   }
+
+  public replaceDotWithComma(price: number): string {
+    let priceWithComma = String(price.toFixed(2)).replace('.', ',');
+    return priceWithComma;
+  }
 }

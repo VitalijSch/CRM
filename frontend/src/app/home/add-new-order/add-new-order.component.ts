@@ -13,6 +13,9 @@ import { ApiService } from '../../services/api/api.service';
   styleUrl: './add-new-order.component.css'
 })
 export class AddNewOrderComponent {
+  public isStockLimit: boolean = false;
+  public messageStockLimit: string = '';
+
   public orderForm: FormGroup;
 
   public homeService: HomeService = inject(HomeService);
@@ -30,22 +33,41 @@ export class AddNewOrderComponent {
   }
 
   public createNewOrder(): void {
-    let amount = this.homeService.products().find(product => product.product === this.orderForm.get('product')?.value)
-    let order = {
-      product: this.orderForm.get('product')?.value,
-      quantity: this.orderForm.get('quantity')?.value,
-      amount: amount?.price,
-      customer: this.orderForm.get('customer')?.value,
-    }
-    console.log(order)
-    this.apiService.createOrder(order).subscribe({
-      next: (newOrder) => {
-        this.orderForm.reset();
-        this.homeService.orders.update(orders => [...orders, newOrder]);
-      },
-      error: (error) => {
-        console.error('Fehler beim Erstellen der Notiz:', error);
+    this.checkStockLimit();
+    if (!this.isStockLimit) {
+      let amount = this.homeService.products().find(product => product.product === this.orderForm.get('product')?.value)
+      let order = {
+        product: this.orderForm.get('product')?.value,
+        quantity: this.orderForm.get('quantity')?.value,
+        amount: amount?.price,
+        customer: this.orderForm.get('customer')?.value,
       }
-    });
+      this.apiService.createOrder(order).subscribe({
+        next: (newOrder) => {
+          this.orderForm.reset();
+          this.homeService.orders.update(orders => [...orders, newOrder]);
+          this.router.navigate(['/home/order']);
+        },
+        error: (error) => {
+          console.error('Fehler beim Erstellen der Notiz:', error);
+        }
+      });
+    }
+  }
+
+  public checkStockLimit(): void {
+    let quantity = this.orderForm.get('quantity')?.value;
+    let selectedProduct = this.orderForm.get('product')?.value;
+    let product = this.homeService.products().filter(product => product.product === selectedProduct);
+    if (product.length > 0) {
+      let stockLimit = product[0].total_in_stock;
+      if (stockLimit < quantity) {
+        this.isStockLimit = true;
+        this.messageStockLimit = `Die Menge ${quantity} überschreitet den Gesamtbestand ${stockLimit}`;
+      } else {
+        this.isStockLimit = false;
+        this.messageStockLimit = '';
+      }
+    }
   }
 }

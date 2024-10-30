@@ -12,6 +12,7 @@ import { HomeService } from '../../services/home/home.service';
   styleUrl: './customer.component.css'
 })
 export class CustomerComponent {
+  public emailExist: boolean = false;
   public customerForm: FormGroup;
   public currentCustomer!: Customer;
 
@@ -34,13 +35,20 @@ export class CustomerComponent {
   }
 
   public updateCustomer(): void {
-    this.toggleEditCustomer(this.currentCustomer.id);
-    this.updateCurrentCustomer();
-    this.apiService.updateCustomer(this.currentCustomer.id, this.currentCustomer).subscribe({
-      error: (error) => {
-        console.error('Fehler beim Löschen der Notiz:', error);
-      }
-    });
+    let formEmail = this.customerForm.get('email')?.value;
+    let checkEmail = this.homeService.customers().some(customer => customer.email === formEmail);
+    if (!checkEmail) {
+      this.emailExist = false;
+      this.toggleEditCustomer(this.currentCustomer.id);
+      this.updateCurrentCustomer();
+      this.apiService.updateCustomer(this.currentCustomer.id, this.currentCustomer).subscribe({
+        error: (error) => {
+          console.error('Fehler beim Updaten der Notiz:', error);
+        }
+      });
+    } else {
+      this.emailExist = true;
+    }
   }
 
   private updateCurrentCustomer(): void {

@@ -20,11 +20,17 @@
                         <input type="text" name="product" formControlName="product">
                     </td>
                     <td>
-                        <input type="number" name="quantity" formControlName="quantity">
+                        <input min="1" type="number" name="quantity" formControlName="quantity">
                         @if(orderForm.get('quantity')?.invalid && orderForm.get('quantity')?.touched) {
                         @if(orderForm.get('quantity')?.hasError('required')) {
                         <small>Menge ist erforderlich</small>
                         }
+                        @if(orderForm.get('quantity')?.hasError('min')) {
+                        <small>Menge muss mindestens 1 betragen</small>
+                        }
+                        }
+                        @if(isStockLimit) {
+                        <small>{{messageStockLimit}}</small>
                         }
                     </td>
                     <td>

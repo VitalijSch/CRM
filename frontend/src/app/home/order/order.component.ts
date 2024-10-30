@@ -12,6 +12,8 @@ import { Order } from '../../interfaces/order';
   styleUrl: './order.component.css'
 })
 export class OrderComponent {
+  public isStockLimit: boolean = false;
+  public messageStockLimit: string = '';
   public orderForm: FormGroup;
   public currentOrder!: Order;
 
@@ -35,13 +37,16 @@ export class OrderComponent {
   }
 
   public updateOrder(): void {
-    this.toggleEditOrder(this.currentOrder.id);
-    this.updateCurrentOrder();
-    this.apiService.updateOrder(this.currentOrder.id, this.currentOrder).subscribe({
-      error: (error) => {
-        console.error('Fehler beim Löschen der Notiz:', error);
-      }
-    });
+    this.checkStockLimit();
+    if (!this.isStockLimit) {
+      this.toggleEditOrder(this.currentOrder.id);
+      this.updateCurrentOrder();
+      this.apiService.updateOrder(this.currentOrder.id, this.currentOrder).subscribe({
+        error: (error) => {
+          console.error('Fehler beim Löschen der Notiz:', error);
+        }
+      });
+    }
   }
 
   private updateCurrentOrder(): void {
@@ -108,7 +113,23 @@ export class OrderComponent {
 
   public replaceCommaWithDot(quantity: number, amount: number): string {
     let result = quantity * amount;
-    let resultWithComma = String(result).replace('.', ',');
+    let resultWithComma = String(result.toFixed(2)).replace('.', ',');
     return `${resultWithComma} €`;
+  }
+
+  public checkStockLimit(): void {
+    let quantity = this.orderForm.get('quantity')?.value;
+    let selectedProduct = this.orderForm.get('product')?.value;
+    let product = this.homeService.products().filter(product => product.product === selectedProduct);
+    if (product.length > 0) {
+      let stockLimit = product[0].total_in_stock;
+      if (stockLimit < quantity) {
+        this.isStockLimit = true;
+        this.messageStockLimit = `Die Menge ${quantity} überschreitet den Gesamtbestand ${stockLimit}`;
+      } else {
+        this.isStockLimit = false;
+        this.messageStockLimit = '';
+      }
+    }
   }
 }

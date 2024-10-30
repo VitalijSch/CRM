@@ -13,6 +13,7 @@ import { HomeService } from '../../services/home/home.service';
   styleUrl: './add-new-customer.component.css'
 })
 export class AddNewCustomerComponent {
+  public emailExist: boolean = false;
   public customerForm: FormGroup;
 
   public router: Router = inject(Router);
@@ -35,8 +36,10 @@ export class AddNewCustomerComponent {
       next: (newCustomer) => {
         this.customerForm.reset();
         this.homeService.customers.update(customers => [...customers, newCustomer]);
+        this.router.navigate(['/home/customer']);
       },
       error: (error) => {
+        this.emailExist = true;
         console.error('Fehler beim Erstellen der Notiz:', error);
       }
     });

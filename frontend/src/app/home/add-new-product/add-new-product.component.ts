@@ -35,6 +35,7 @@ export class AddNewProductComponent {
       next: (newProduct) => {
         this.productForm.reset();
         this.homeService.products.update(products => [...products, newProduct]);
+        this.router.navigate(['/home/product']);
       },
       error: (error) => {
         console.error('Fehler beim Erstellen der Notiz:', error);

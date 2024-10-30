@@ -1,45 +1,51 @@
 <div class="add-new-order-container">
-    <h1>Add New Order</h1>
+    <h1>Neue Bestellung hinzufügen</h1>
     <hr>
     <form [formGroup]="orderForm" (ngSubmit)="createNewOrder()">
         <div class="input-container">
             <div class="label-input-container">
-                <label for="product"><span>*</span>Product</label>
+                <label for="product"><span>*</span>Produkt</label>
                 <select id="product" formControlName="product">
-                    <option value="" disabled selected>Select a product</option>
+                    <option value="" disabled selected>Wählen Sie ein Produkt aus</option>
                     @for (product of homeService.products(); track $index) {
                     <option [value]="product.product">{{ product.product }}</option>
                     }
                 </select>
                 @if(orderForm.get('product')?.invalid && orderForm.get('product')?.touched) {
                 @if(orderForm.get('product')?.hasError('required')) {
-                <small>Please select a Product</small>
+                <small>Bitte wählen Sie ein Produkt aus</small>
                 }
                 }
             </div>
             <div class="label-input-container">
-                <label for="quantity"><span>*</span>Quantity</label>
-                <input type="number" name="quantity" id="quantity" formControlName="quantity"
-                    placeholder="Enter your Quantity">
+                <label for="quantity"><span>*</span>Menge</label>
+                <input min="1" type="number" name="quantity" id="quantity" formControlName="quantity"
+                    placeholder="Geben Sie die Menge ein">
                 @if(orderForm.get('quantity')?.invalid && orderForm.get('quantity')?.touched) {
                 @if(orderForm.get('quantity')?.hasError('required')) {
-                <small>Quantity is required</small>
+                <small>Menge ist erforderlich</small>
                 }
+                @if(orderForm.get('quantity')?.hasError('min')) {
+                <small>Menge muss mindestens 1 betragen</small>
+                }
+                }
+                @if(isStockLimit) {
+                <small>{{messageStockLimit}}</small>
                 }
             </div>
         </div>
         <div class="input-container">
             <div class="label-input-container">
-                <label for="customer"><span>*</span>Customer</label>
+                <label for="customer"><span>*</span>Besteller</label>
                 <select id="customer" formControlName="customer">
-                    <option value="" disabled selected>Select a Customer</option>
+                    <option value="" disabled selected>Wählen Sie den Besteller</option>
                     @for (customer of homeService.customers(); track $index) {
                     <option [value]="customer.first_name">{{ customer.first_name }}</option>
                     }
                 </select>
                 @if(orderForm.get('customer')?.invalid && orderForm.get('customer')?.touched) {
                 @if(orderForm.get('customer')?.hasError('required')) {
-                <small>Please select a Customer</small>
+                <small>Bitte wählen Sie den Besteller</small>
                 }
                 }
             </div>
@@ -50,7 +56,7 @@
                 <svg width="40" height="40" fill="white" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z"></path>
                 </svg>
-                <span>Back</span>
+                <span>Zurück</span>
             </button>
             <button [ngClass]="{'save-button': orderForm.valid}" [disabled]="orderForm.invalid">
                 <svg width="40" height="40" fill="white" viewBox="0 0 24 24" aria-hidden="true">
@@ -58,7 +64,7 @@
                         d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z">
                     </path>
                 </svg>
-                <span>Save</span>
+                <span>Speichern</span>
             </button>
         </div>
     </form>

@@ -47,20 +47,20 @@
                         }
                     </td>
                     <td>
-                        <input type="number" name="total_in_stock" formControlName="total_in_stock">
+                        <input min="1" type="number" name="total_in_stock" formControlName="total_in_stock">
                         @if(productForm.get('total_in_stock')?.invalid && productForm.get('total_in_stock')?.touched) {
                         @if(productForm.get('total_in_stock')?.hasError('required')) {
                         <small>Gesamtbestand ist erforderlich</small>
                         }
-                        @if(productForm.get('total_in_stock')?.hasError('pattern')) {
-                        <small>Bitte geben Sie eine Nummer ein die größer ist als 0</small>
+                        @if(productForm.get('total_in_stock')?.hasError('min')) {
+                        <small>Gesamtbestand muss mindestens 1 betragen</small>
                         }
                         }
                     </td>
                     } @else {
                     <td>{{product.product}}</td>
                     <td>{{product.category}}</td>
-                    <td>{{product.price}} €</td>
+                    <td>{{replaceDotWithComma(product.price)}} €</td>
                     <td>{{product.total_in_stock}}</td>
                     }
                     <td class="buttons">
