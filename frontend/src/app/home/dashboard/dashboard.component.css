@@ -1,3 +1,70 @@
 .dashboard-container {
     height: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 10% 90%;
+    grid-template-areas:
+        "item-1 item-2 item-3"
+        "item-4 item-4 item-4";
+    gap: 20px;
+}
+
+.small-container {
+    background-color: white;
+    border-radius: 10px;
+    border: unset;
+    box-shadow:
+        0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+        0px 6px 10px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    display: flex;
+}
+
+.small-container:nth-child(1) {
+    grid-area: item-1;
+}
+
+.small-container:nth-child(2) {
+    grid-area: item-2;
+}
+
+.small-container:nth-child(3) {
+    grid-area: item-3;
+}
+
+.svg-container {
+    width: 40%;
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-container {
+    width: 60%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+span {
+    font-weight: 700;
+    word-break: break-all;
+}
+
+.big-container {
+    grid-area: item-4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#myPieChart {
+    width: auto !important;
+    height: 80% !important;
 }

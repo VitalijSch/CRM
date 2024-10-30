@@ -35,20 +35,17 @@ export class CustomerComponent {
   }
 
   public updateCustomer(): void {
-    let formEmail = this.customerForm.get('email')?.value;
-    let checkEmail = this.homeService.customers().some(customer => customer.email === formEmail);
-    if (!checkEmail) {
-      this.emailExist = false;
-      this.toggleEditCustomer(this.currentCustomer.id);
-      this.updateCurrentCustomer();
-      this.apiService.updateCustomer(this.currentCustomer.id, this.currentCustomer).subscribe({
-        error: (error) => {
-          console.error('Fehler beim Updaten der Notiz:', error);
-        }
-      });
-    } else {
-      this.emailExist = true;
-    }
+    this.updateCurrentCustomer();
+    this.apiService.updateCustomer(this.currentCustomer.id, this.currentCustomer).subscribe({
+      next: () => {
+        this.toggleEditCustomer(this.currentCustomer.id);
+        this.emailExist = false;
+      },
+      error: (error) => {
+        this.emailExist = true;
+        console.error('Fehler beim Updaten der Notiz:', error);
+      }
+    });
   }
 
   private updateCurrentCustomer(): void {

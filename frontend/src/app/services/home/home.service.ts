@@ -9,11 +9,15 @@ import { Product } from '../../interfaces/product';
 })
 export class HomeService {
   public categories: string[] = [
-    'Obst',
-    'Gemüse',
-    'Fleisch',
-    'Fisch',
-    'Milchprodukte'
+    'Lebensmittel',
+    'Haushaltsartikel',
+    'Elektronik',
+    'Bekleidung',
+    'Gesundheitsartikel',
+    'Möbel',
+    'Spielzeug',
+    'Sportartikel',
+    'Bürobedarf',
   ];
 
   public customers = signal<Customer[]>([]);
