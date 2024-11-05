@@ -16,8 +16,16 @@ export class ApiService {
 
   private http: HttpClient = inject(HttpClient);
 
+  constructor() {
+    this.loadToken();
+  }
+
   public setToken(token: string) {
     this.token = token;
+  }
+
+  private loadToken() {
+    this.token = localStorage.getItem('accessToken');
   }
 
   public refreshToken(refreshToken: string): Observable<any> {

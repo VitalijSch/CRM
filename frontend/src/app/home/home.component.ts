@@ -6,6 +6,7 @@ import { HeaderService } from '../services/home/header/header.service';
 import { FormsModule } from '@angular/forms';
 import { HomeService } from '../services/home/home.service';
 import { CommonModule } from '@angular/common';
+import { SidebarService } from '../services/home/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-home',
@@ -22,15 +23,26 @@ export class HomeComponent {
   public router: Router = inject(Router);
 
   private homeService: HomeService = inject(HomeService);
+  private sidebarService: SidebarService = inject(SidebarService);
 
   public ngOnInit(): void {
     this.checkAccessTokenIsExist();
+    this.getUserData();
   }
 
   private checkAccessTokenIsExist(): void {
     const accessToken = localStorage.getItem('accessToken');
     if (!accessToken) {
       this.router.navigate(['/auth/sign-in']);
+    }
+  }
+
+  private getUserData(): void {
+    const userDataString = localStorage.getItem('userData');
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);
+      this.sidebarService.userData.username = userData?.username;
+      this.sidebarService.userData.profileImage = userData?.profile_image;
     }
   }
 

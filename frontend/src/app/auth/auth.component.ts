@@ -13,6 +13,7 @@ export class AuthComponent {
 
   public ngOnInit(): void {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('userData');
   }
 
   public getAuthTitle(): string {
